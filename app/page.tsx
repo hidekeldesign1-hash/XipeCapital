@@ -1,37 +1,29 @@
 import Header from '@/components/Header';
+import HeroDaylight from '@/components/HeroDaylight';
+import ArchitectureLayers from '@/components/ArchitectureLayers';
+import ServiceConstellation from '@/components/ServiceConstellation';
+import Method from '@/components/Method';
+import AuthorityProcess from '@/components/AuthorityProcess';
+import FAQ from '@/components/FAQ';
+import FinalCTA from '@/components/FinalCTA';
 import Footer from '@/components/Footer';
-import StickyCTA from '@/components/StickyCTA';
-import Hero from '@/sections/Hero';
-import ProblemStatement from '@/sections/ProblemStatement';
-import ArchitectureLayers from '@/sections/ArchitectureLayers';
-import Pillars from '@/sections/Pillars';
-import Method from '@/sections/Method';
-import Routes from '@/sections/Routes';
-import Authority from '@/sections/Authority';
-import ProcessProof from '@/sections/ProcessProof';
-import Education from '@/sections/Education';
-import FAQ from '@/sections/FAQ';
-import FinalCTA from '@/sections/FinalCTA';
+import StickyBar from '@/components/StickyBar';
 
 export default function Page() {
   return (
     <>
       <Header />
       <main id="main">
-        <Hero />
-        <ProblemStatement />
+        <HeroDaylight />
         <ArchitectureLayers />
-        <Pillars />
+        <ServiceConstellation />
         <Method />
-        <Routes />
-        <Authority />
-        <ProcessProof />
-        <Education />
+        <AuthorityProcess />
         <FAQ />
         <FinalCTA />
       </main>
       <Footer />
-      <StickyCTA />
+      <StickyBar />
     </>
   );
 }

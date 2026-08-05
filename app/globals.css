@@ -2,156 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ══════════════════════════════════════════════════════════════
-   XIPE CAPITAL GROUP — DARK LUMINOUS
-   La greca del logotipo es un trazo ortogonal que avanza en
-   escalones. Esa geometría gobierna todo lo que conecta algo:
-   el núcleo patrimonial, las capas y la línea del método.
-   ══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════
+   XIPE — VERSIÓN B · DAYLIGHT LIQUID ARCHITECTURE
+   El patrimonio como sistema vivo. La greca digital es un circuito
+   ortogonal continuo: recorre, conecta y avanza. Nunca una pirámide.
+   ══════════════════════════════════════════════════════════════════ */
 
 :root {
-  --xipe-black: #050605;
-  --xipe-deep: #090B0A;
-  --xipe-graphite: #111412;
-  --xipe-surface: #171A17;
-  --xipe-surface-light: #20241F;
+  --xipe-day: #F8F9F6;
+  --xipe-white: #FFFFFF;
+  --xipe-ivory: #F4F1E9;
+  --xipe-mist: #EAEFEB;
+  --xipe-cloud: #DDE5E0;
 
-  --xipe-ivory: #F6F2E9;
-  --xipe-warm-white: #FFFDF8;
-  --xipe-soft-white: #EAE8E1;
+  --xipe-ink: #0A0D0B;
+  --xipe-graphite: #1B201D;
+  --xipe-muted: #66706A;
 
-  --xipe-gold: #C9A765;
-  --xipe-gold-light: #E6D09A;
-  --xipe-gold-muted: #806A42;
+  --xipe-gold: #BE9A58;
+  --xipe-gold-light: #E3CCA0;
+  --xipe-champagne: #F1E2C4;
+  /* Derivado documentado: #BE9A58 da 2.5:1 sobre fondo día — no sirve
+     para texto. #8A6D30 da 4.6:1 y es el único dorado que se usa en texto. */
+  --xipe-gold-ink: #8A6D30;
 
-  --xipe-signal: #9DE4D0;
-  --xipe-signal-soft: rgba(157, 228, 208, .15);
+  --xipe-mint: #8EDCC9;
+  --xipe-mint-light: #C7F2E7;
+  --xipe-aqua: #8BCED2;
 
-  --xipe-text: #F4F2EC;
-  --xipe-text-muted: #A7AAA4;
-  --xipe-dark-text: #111310;
-
-  --xipe-border: rgba(255, 255, 255, .10);
-  --xipe-border-gold: rgba(201, 167, 101, .32);
+  --xipe-glass: rgba(255, 255, 255, .52);
+  --xipe-glass-strong: rgba(255, 255, 255, .72);
+  --xipe-glass-dark: rgba(15, 20, 17, .06);
+  --xipe-border: rgba(255, 255, 255, .68);
+  --xipe-border-dark: rgba(10, 13, 11, .09);
+  --xipe-shadow: rgba(27, 49, 39, .12);
 
   --ease: cubic-bezier(.22, .61, .28, 1);
 }
 
 * { box-sizing: border-box; }
-
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  background: var(--xipe-black);
-  color: var(--xipe-text);
+  background: var(--xipe-day);
+  color: var(--xipe-ink);
   font-size: 18px;
-  line-height: 1.6;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 body.is-locked { overflow: hidden; }
 
-/* Sin cursivas en ninguna parte del sitio. */
+/* Sin cursivas en ninguna parte. */
 em, i, cite, address, dfn, var { font-style: normal; }
 
-::selection { background: var(--xipe-gold); color: var(--xipe-black); }
+::selection { background: var(--xipe-mint-light); color: var(--xipe-ink); }
 
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--xipe-signal);
+  outline: 2px solid var(--xipe-gold-ink);
   outline-offset: 3px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 /* ── Tipografía ── */
-.t-display { font-family: var(--font-manrope), system-ui, sans-serif; font-weight: 600; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
-.t-h1 { font-size: clamp(2.625rem, 1.4rem + 5.4vw, 6.5rem); }
-.t-h2 { font-size: clamp(2rem, 1.35rem + 2.9vw, 3.9rem); line-height: 1.04; }
-.t-h3 { font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2.1rem); line-height: 1.12; }
-.t-h4 { font-size: clamp(1.125rem, 1.05rem + .35vw, 1.35rem); line-height: 1.22; letter-spacing: -.02em; }
-.t-lede { font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); line-height: 1.55; letter-spacing: -.008em; }
-.t-body { font-size: 1rem; line-height: 1.68; }
-.t-label { font-size: .875rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.t-display { font-family: var(--font-manrope), var(--font-geist-sans), system-ui, sans-serif; font-weight: 600; letter-spacing: -.038em; line-height: 1.0; text-wrap: balance; }
+.t-h1 { font-size: clamp(2.75rem, 1.3rem + 6.2vw, 7rem); }
+.t-h2 { font-size: clamp(2.125rem, 1.3rem + 3.4vw, 4.5rem); line-height: 1.03; }
+.t-h3 { font-size: clamp(1.5rem, 1.25rem + 1.1vw, 2.125rem); line-height: 1.14; }
+.t-lede { font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); line-height: 1.5; letter-spacing: -.01em; color: var(--xipe-muted); }
+.t-body { font-size: 1rem; line-height: 1.62; color: var(--xipe-muted); }
+.t-label { font-size: .875rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
 
-/* Palabra destacada del H1: luz champaña, sin cursiva */
-.t-glow {
-  background: linear-gradient(96deg, var(--xipe-gold-light) 0%, var(--xipe-warm-white) 42%, var(--xipe-gold) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* ── Marca de sección: greca en miniatura ── */
-.fret {
-  display: inline-block; width: 22px; height: 7px; flex: none;
+/* ── Luz de fondo: nada de blanco plano ── */
+.daylight {
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
   background:
-    linear-gradient(var(--xipe-gold), var(--xipe-gold)) left top / 22px 1px no-repeat,
-    linear-gradient(var(--xipe-gold), var(--xipe-gold)) right bottom / 11px 1px no-repeat,
-    linear-gradient(var(--xipe-gold), var(--xipe-gold)) right top / 1px 7px no-repeat;
+    radial-gradient(64% 48% at 78% 8%, rgba(241,226,196,.55) 0%, transparent 62%),
+    radial-gradient(52% 44% at 12% 82%, rgba(199,242,231,.42) 0%, transparent 66%),
+    radial-gradient(88% 66% at 50% 0%, rgba(255,255,255,.9) 0%, transparent 70%);
+}
+.caustic {
+  position: absolute; pointer-events: none; z-index: 0; border-radius: 50%;
+  filter: blur(46px); opacity: .5;
+  animation: float var(--dur, 20s) ease-in-out infinite alternate;
+}
+@keyframes float {
+  to { transform: translate3d(3%, -4%, 0) scale(1.08); }
 }
 
-/* ── Fondos ── */
-.grid-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.026) 1px, transparent 1px);
-  background-size: 92px 92px;
-  -webkit-mask-image: radial-gradient(120% 88% at 50% 0%, #000 22%, transparent 76%);
-  mask-image: radial-gradient(120% 88% at 50% 0%, #000 22%, transparent 76%);
+/* ── Cristal líquido ── */
+.liquid {
+  position: relative;
+  background: var(--xipe-glass);
+  backdrop-filter: blur(22px) saturate(1.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  border: 1px solid var(--xipe-border);
+  box-shadow: 0 1px 0 rgba(255,255,255,.9) inset, 0 18px 48px -22px var(--xipe-shadow);
 }
-.glow {
-  position: absolute; pointer-events: none; border-radius: 50%;
-  background: radial-gradient(circle, rgba(201,167,101,.13) 0%, transparent 66%);
-  animation: drift 18s ease-in-out infinite alternate;
+.liquid-strong { background: var(--xipe-glass-strong); }
+/* Reflejo que sigue al cursor; las variables las escribe el componente. */
+.liquid-sheen::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(180px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,.55), transparent 62%);
+  opacity: 0; transition: opacity .24s var(--ease);
 }
-.glow--signal { background: radial-gradient(circle, var(--xipe-signal-soft) 0%, transparent 68%); }
-@keyframes drift { to { transform: translate3d(4%, -3%, 0) scale(1.06); } }
+.liquid-sheen:hover::after { opacity: 1; }
 
-.hairline { height: 1px; background: var(--xipe-border); border: 0; }
-
-/* ── Pulsos que viajan por los trazos ── */
-.spark {
-  offset-path: var(--p);
-  offset-distance: 0%;
-  offset-rotate: 0deg;
-  animation: flow var(--dur, 9s) linear infinite;
-  animation-delay: var(--dl, 0s);
-}
-@keyframes flow {
-  0% { offset-distance: 0%; opacity: 0; }
-  10% { opacity: 1; }
-  86% { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
+/* En móvil el blur pesado se reduce: rendimiento antes que efecto. */
+@media (max-width: 767px) {
+  .liquid { backdrop-filter: blur(12px) saturate(1.3); -webkit-backdrop-filter: blur(12px) saturate(1.3); }
+  .caustic { filter: blur(30px); }
 }
 
-/* ── Barras de scroll internas ── */
+/* ── Greca: reflejo que recorre el trazo ── */
+.greca-sweep { stroke-dasharray: 26 320; animation: sweep var(--dur, 9s) linear infinite; }
+@keyframes sweep { to { stroke-dashoffset: -346; } }
+
+/* ── Tipografía viva ── */
+.kinetic { display: inline-block; white-space: pre; will-change: transform; }
+
 .no-bar { scrollbar-width: none; }
 .no-bar::-webkit-scrollbar { display: none; }
 
-/* ── CTA de la pantalla de entrada ── */
-.intro-cta {
-  box-shadow:
-    0 0 0 1px rgba(230, 208, 154, .35),
-    0 18px 50px -18px rgba(201, 167, 101, .75),
-    0 0 48px -8px rgba(201, 167, 101, .45);
-  animation: intro-pulse 2.4s ease-in-out infinite;
-}
-@keyframes intro-pulse {
-  0%, 100% {
-    box-shadow:
-      0 0 0 1px rgba(230, 208, 154, .35),
-      0 18px 50px -18px rgba(201, 167, 101, .75),
-      0 0 48px -8px rgba(201, 167, 101, .45);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px rgba(230, 208, 154, .55),
-      0 22px 60px -14px rgba(201, 167, 101, .95),
-      0 0 72px 0 rgba(201, 167, 101, .55);
-  }
-}
-
-/* ── Movimiento reducido ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
@@ -159,6 +131,7 @@ em, i, cite, address, dfn, var { font-style: normal; }
     transition-duration: .01ms !important;
     scroll-behavior: auto !important;
   }
-  .spark, .glow { display: none; }
-  .intro-cta { animation: none; }
+  .caustic { animation: none; }
+  /* La greca queda dibujada y estática: conserva sentido visual. */
+  .greca-sweep { stroke-dasharray: none; animation: none; }
 }

@@ -1,8 +1,13 @@
-# Xipe Capital Group — Arquitectura Patrimonial
+# Xipe Capital Group — Versión B · Daylight Liquid Architecture
 
-Experiencia digital en Next.js (App Router), TypeScript y React. Dirección visual
-*dark luminous*: base oscura con secciones marfil, oro champaña y un color señal
-técnico usado con moderación.
+> **NO fusionar este branch con `main`.**  
+> `main` = Versión A (dark). `version-b` = Versión B (daylight).  
+> Son variantes paralelas para comparar, no un merge.
+
+Variante conceptual luminosa de la experiencia de arquitectura patrimonial.
+
+- **Versión A** (`main`): dark luminous — producción del mismo proyecto Vercel  
+- **Versión B** (`version-b`): esta — preview / dominio asignado al branch
 
 ---
 
@@ -11,79 +16,83 @@ técnico usado con moderación.
 Requiere Node.js 18.18 o superior.
 
 ```bash
+git checkout version-b
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # build de producción
-npm start        # sirve el build
+npm run build
+npm start
 ```
 
-## Despliegue en Vercel
-
-**Opción A — desde GitHub (recomendada)**
-
-1. Sube el proyecto a un repositorio.
-2. En Vercel: **Add New → Project → Import Git Repository**.
-3. Framework: *Next.js* (se detecta solo). Build: `npm run build`. Output: `.next`.
-4. **Deploy**.
-
-**Opción B — desde tu Mac**
+Volver a A:
 
 ```bash
-npm i -g vercel
-vercel          # preview
-vercel --prod   # producción
+git checkout main
 ```
 
-No hay variables de entorno obligatorias. Cuando conectes el CRM, agrega la clave
-en **Settings → Environment Variables** y consúmela **solo desde el servidor**
-(una route handler en `app/api/`), nunca desde un componente cliente.
+---
+
+## Despliegue en Vercel (mismo proyecto, dos branches)
+
+Usa **un solo** proyecto Vercel conectado al repo `XipeCapital`.
+
+1. **Production Branch = `main`**  
+   Settings → Git → Production Branch → `main`  
+   Así la URL de producción (ej. `xipe-capital.vercel.app`) siempre es la versión A.
+
+2. **Push de `version-b`**  
+   Vercel genera un **Preview Deployment** automático para este branch.
+
+3. **URL estable para B (recomendado)**  
+   Settings → Domains → Add → `xipe-capital-b.vercel.app` (o el subdominio que quieras)  
+   → Assign to **Git Branch** → `version-b`  
+   Cada push a `version-b` actualiza esa URL; `main` no se toca.
+
+4. **No abras un PR de `version-b` → `main`** para “publicar” B.  
+   Publicar B = asignar dominio al branch, no mergear.
+
+Sin variables de entorno obligatorias. Cuando conectes el CRM, guarda la clave
+en Environment Variables y úsala **solo desde el servidor** (`app/api/`).
 
 ---
 
 ## Estructura
 
 ```
-app/
-  layout.tsx        Fuentes, metadata, skip link, providers
-  page.tsx          Orden de secciones
-  globals.css       Tokens, tipografía, greca, fondos, reduced-motion
-  icon.png          Favicon
-components/         UI reutilizable
-  MotionProvider    Lenis + GSAP ScrollTrigger
-  Header / Footer / StickyCTA
-  Diagnosis         Panel de diagnóstico (5 pasos + resultado)
-  PatrimonialCore   Núcleo patrimonial (SVG + motion)
-  SectionLabel
-sections/           Secciones de página (una responsabilidad cada una)
-  Hero, ProblemStatement, ArchitectureLayers, Pillars,
-  Method, Routes, Authority, ProcessProof, Education, FAQ, FinalCTA
+app/            layout · page · globals.css · icon
+components/
+  Header, HeroDaylight, LivingArchitecture, ArchitectureLayers,
+  ServiceConstellation, Method, Diagnosis, AuthorityProcess,
+  FAQ, FinalCTA, Footer, StickyBar
+components/greca/
+  GrecaPath, GrecaDivider, GrecaProgress, GrecaBackground, GrecaConnector
+components/ui/
+  LiquidPanel, LiquidButton, KineticText, SectionReveal, Modal
 lib/
-  animations/       Easings, variants Framer, GSAP helpers, CanvasSequence
-  tracking.ts       trackEvent() central, 24 eventos, solo consola
-  constants.ts      Todo el copy, en un solo archivo auditable
-  diagnosis.ts      Pasos, resultado conceptual y payload de CRM
+  tracking.ts   VARIANT="B", 27 eventos, marca de primera interacción
+  diagnosis.ts  5 pasos, resultado ≤55 palabras, payload de CRM
+  motion.ts     curvas y duraciones compartidas
+  constants.ts  todo el copy
 ```
 
-## Analítica
+## Medición A vs B
 
-`lib/tracking.ts` centraliza los 24 eventos. En preview solo escriben a consola.
-Los puntos de conexión (GTM, GA4, Meta, Ads, TikTok, Clarity, GoHighLevel,
-Conversion API y conversiones offline) están documentados en el mismo archivo.
+`lib/tracking.ts` marca cada evento con `variant: "B"`. En consola verás:
 
-## CRM
+```
+[Xipe Tracking] { variant: 'B', event: 'diagnosis_started', source: 'hero' }
+```
 
-`buildCrmPayload()` en `lib/diagnosis.ts` arma el objeto con los 15 campos
-acordados. **No se envía nada**: se imprime en consola. Las tres vías de conexión
-con GoHighLevel están comentadas ahí mismo.
+`markFirstInteraction()` registra el tiempo hasta la primera interacción real
+para poder compararlo contra A. Conversión principal `diagnosis_completed`,
+secundaria `service_selected`, terciaria `advisor_review_requested`.
 
-## Reglas de contenido
+## Vercel Analytics
 
-No hay aseguradoras, cédulas, testimonios, cifras, rendimientos ni avales
-inventados. Todo lo que falta aparece como placeholder visible en pantalla, con
-el formato `[TEXTO PENDIENTE]`, para que no pueda publicarse por descuido.
+Preparado, no conectado. Instrucciones en el comentario de `app/layout.tsx`.
 
-## Accesibilidad
+## Nota de contraste
 
-Un solo H1, jerarquía correcta, skip link, foco visible, foco atrapado y Escape
-en los paneles, `aria-expanded` / `aria-controls` / `aria-live`, áreas táctiles de
-44 px y respeto a `prefers-reduced-motion` (Lenis y GSAP no se inicializan).
+El dorado de marca `#BE9A58` da 2.5:1 sobre el fondo día: **no se usa en
+texto**. Para eso existe `--xipe-gold-ink: #8A6D30` (4.6:1, AA). El dorado
+de marca queda para trazos, nodos, rellenos y el fondo del CTA principal
+(texto tinta sobre dorado: 7.4:1).
