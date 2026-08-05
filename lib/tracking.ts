@@ -19,6 +19,8 @@
 export type TrackPayload = Record<string, string | number | boolean | undefined>;
 
 export const EVENTS = [
+  'intro_viewed',
+  'intro_enter_click',
   'hero_viewed',
   'hero_primary_cta_click',
   'method_link_click',

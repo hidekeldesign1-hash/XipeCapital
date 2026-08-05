@@ -3,6 +3,7 @@ import { Manrope, Inter } from 'next/font/google';
 import './globals.css';
 import MotionProvider from '@/components/MotionProvider';
 import DiagnosisProvider from '@/components/Diagnosis';
+import IntroGate from '@/components/IntroGate';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -51,7 +52,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Ir al contenido
         </a>
         <MotionProvider>
-          <DiagnosisProvider>{children}</DiagnosisProvider>
+          <DiagnosisProvider>
+            <IntroGate>{children}</IntroGate>
+          </DiagnosisProvider>
         </MotionProvider>
       </body>
     </html>
