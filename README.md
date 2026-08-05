@@ -87,3 +87,9 @@ el formato `[TEXTO PENDIENTE]`, para que no pueda publicarse por descuido.
 Un solo H1, jerarquía correcta, skip link, foco visible, foco atrapado y Escape
 en los paneles, `aria-expanded` / `aria-controls` / `aria-live`, áreas táctiles de
 44 px y respeto a `prefers-reduced-motion` (Lenis y GSAP no se inicializan).
+
+## Variante B (paralela)
+
+El branch `version-b` (Daylight Liquid Architecture) vive en el **mismo** repo.
+**No se fusiona con `main`.** Ver `BRANCHES.md`. En Vercel: Production = `main`;
+asigna un dominio al Git Branch `version-b` para la URL estable de B.
