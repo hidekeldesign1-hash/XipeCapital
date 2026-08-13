@@ -18,7 +18,6 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
   const [visible, setVisible] = useState(true);
   const [reduced, setReduced] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoReady, setVideoReady] = useState(false);
   const [locking, setLocking] = useState(true);
   const entered = useRef(false);
 
@@ -124,11 +123,16 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
       arm();
       const attempt = v.play();
       if (attempt) {
-        void attempt
-          .then(() => setVideoReady(true))
-          .catch(() => {
-            /* iOS Low Power / políticas: reintento en el siguiente gesto */
-          });
+        void attempt.catch(() => {
+          /* iOS Low Power: pinta un frame aunque no haya autoplay */
+          if (v.paused && v.readyState >= 2) {
+            try {
+              v.currentTime = 0.12;
+            } catch {
+              /* ignore seek errors */
+            }
+          }
+        });
       }
     };
 
@@ -179,14 +183,18 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
             transition={{ duration: 0.7, ease: EASE }}
             onClick={() => enter('click')}
           >
-            <div className="pointer-events-none absolute inset-0" data-intro-bg aria-hidden>
+            <div
+              className="pointer-events-none absolute inset-0 bg-black bg-cover bg-center"
+              style={{ backgroundImage: "url('/videos/intro-poster.jpg')" }}
+              data-intro-bg
+              aria-hidden
+            >
               {!reduced && (
                 <video
                   ref={videoRef}
-                  className={`intro-video absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
-                    videoReady ? 'opacity-100' : 'opacity-0'
-                  }`}
+                  className="intro-video absolute inset-0 h-full w-full object-cover"
                   src="/videos/intro-loop.mp4"
+                  poster="/videos/intro-poster.jpg"
                   autoPlay
                   muted
                   loop
@@ -194,15 +202,14 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
                   preload="auto"
                   controls={false}
                   disablePictureInPicture
-                  onPlaying={() => setVideoReady(true)}
                   aria-hidden
                 />
               )}
               {/* Sombra entre video y contenido: atenúa el fondo sin apagarlo */}
-              <div className="absolute inset-0 bg-black/55" />
-              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(5,6,5,.35)_0%,rgba(5,6,5,.55)_42%,rgba(5,6,5,.82)_100%)]" />
-              <div className="absolute inset-x-0 top-0 h-[28%] bg-gradient-to-b from-black/50 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute inset-0 bg-black/25 md:bg-black/40" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(5,6,5,.28)_48%,rgba(5,6,5,.62)_100%)]" />
+              <div className="absolute inset-x-0 top-0 h-[22%] bg-gradient-to-b from-black/40 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-[26%] bg-gradient-to-t from-black/50 to-transparent" />
             </div>
 
             <div className="relative z-10 flex w-full max-w-[520px] flex-col items-center px-6 text-center">
