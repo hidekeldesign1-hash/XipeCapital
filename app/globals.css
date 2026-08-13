@@ -206,27 +206,6 @@ em, i, cite, address, dfn, var { font-style: normal; }
   }
 }
 
-/* iOS: el play nativo vive en una capa propia; la máscara lo recorta */
-.intro-video-wrap {
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
-  mask-image: radial-gradient(white, black);
-}
-.intro-video {
-  pointer-events: none;
-}
-.intro-video::-webkit-media-controls,
-.intro-video::-webkit-media-controls-start-playback-button,
-.intro-video::-webkit-media-controls-overlay-play-button,
-.intro-video::-webkit-media-controls-panel,
-.intro-video::-webkit-media-controls-play-button {
-  display: none !important;
-  pointer-events: none !important;
-  -webkit-appearance: none !important;
-  opacity: 0 !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
 /* ── Ornamento lateral dorado (trazos, pulso, flujo) ── */
 .side-glyph {
   overflow: visible;

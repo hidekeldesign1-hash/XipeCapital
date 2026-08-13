@@ -6,7 +6,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { EASE } from '@/lib/animations';
 import { trackEvent, trackOnce } from '@/lib/tracking';
 import { holdLenis, lenisJumpToTop, releaseLenis } from '@/lib/lenis-control';
-import IntroLoop from '@/components/IntroLoop';
+
+/** 10s nativos → ~13.3s a 0.75x para un loop más pausado */
+const INTRO_PLAYBACK_RATE = 0.75;
 
 /**
  * Puerta de entrada al sitio.
@@ -17,6 +19,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
   const [reduced, setReduced] = useState(false);
   const [locking, setLocking] = useState(true);
   const entered = useRef(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const enter = useCallback((from: 'cta' | 'click' | 'scroll') => {
     if (entered.current) return;
@@ -101,6 +104,19 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
+  useEffect(() => {
+    if (!visible || reduced) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.playbackRate = INTRO_PLAYBACK_RATE;
+    const play = () => {
+      v.playbackRate = INTRO_PLAYBACK_RATE;
+      void v.play().catch(() => {});
+    };
+    play();
+    v.addEventListener('loadeddata', play);
+    return () => v.removeEventListener('loadeddata', play);
+  }, [visible, reduced]);
 
   return (
     <>
@@ -127,13 +143,20 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
             transition={{ duration: 0.7, ease: EASE }}
             onClick={() => enter('click')}
           >
-            <div
-              className="pointer-events-none absolute inset-0 bg-black bg-cover bg-center"
-              style={{ backgroundImage: "url('/videos/intro-poster.jpg')" }}
-              data-intro-bg
-              aria-hidden
-            >
-              {!reduced && <IntroLoop />}
+            <div className="pointer-events-none absolute inset-0" data-intro-bg aria-hidden>
+              {!reduced && (
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  src="/videos/intro-loop.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-hidden
+                />
+              )}
               {/* Sombra entre video y contenido: atenúa el fondo sin apagarlo */}
               <div className="absolute inset-0 bg-black/25 md:bg-black/40" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(5,6,5,.28)_48%,rgba(5,6,5,.62)_100%)]" />
