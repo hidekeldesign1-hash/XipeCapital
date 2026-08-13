@@ -6,9 +6,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { EASE } from '@/lib/animations';
 import { trackEvent, trackOnce } from '@/lib/tracking';
 import { holdLenis, lenisJumpToTop, releaseLenis } from '@/lib/lenis-control';
-
-/** 10s nativos → ~13.3s a 0.75x para un loop más pausado */
-const INTRO_PLAYBACK_RATE = 0.75;
+import IntroLoop from '@/components/IntroLoop';
 
 /**
  * Puerta de entrada al sitio.
@@ -17,7 +15,6 @@ const INTRO_PLAYBACK_RATE = 0.75;
 export default function IntroGate({ children }: { children: React.ReactNode }) {
   const [visible, setVisible] = useState(true);
   const [reduced, setReduced] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [locking, setLocking] = useState(true);
   const entered = useRef(false);
 
@@ -104,59 +101,6 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  useEffect(() => {
-    if (!visible || reduced) return;
-    const v = videoRef.current;
-    if (!v) return;
-
-    const arm = () => {
-      v.muted = true;
-      v.defaultMuted = true;
-      v.playsInline = true;
-      v.setAttribute('muted', '');
-      v.setAttribute('playsinline', 'true');
-      v.setAttribute('webkit-playsinline', 'true');
-      v.playbackRate = INTRO_PLAYBACK_RATE;
-    };
-
-    const play = () => {
-      arm();
-      const attempt = v.play();
-      if (attempt) {
-        void attempt.catch(() => {
-          /* iOS Low Power: pinta un frame aunque no haya autoplay */
-          if (v.paused && v.readyState >= 2) {
-            try {
-              v.currentTime = 0.12;
-            } catch {
-              /* ignore seek errors */
-            }
-          }
-        });
-      }
-    };
-
-    arm();
-    play();
-
-    const events = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'] as const;
-    events.forEach((ev) => v.addEventListener(ev, play));
-    const onVis = () => {
-      if (document.visibilityState === 'visible') play();
-    };
-    document.addEventListener('visibilitychange', onVis);
-    window.addEventListener('pageshow', play);
-    window.addEventListener('touchstart', play, { passive: true, once: true });
-    window.addEventListener('click', play, { once: true });
-
-    return () => {
-      events.forEach((ev) => v.removeEventListener(ev, play));
-      document.removeEventListener('visibilitychange', onVis);
-      window.removeEventListener('pageshow', play);
-      window.removeEventListener('touchstart', play);
-      window.removeEventListener('click', play);
-    };
-  }, [visible, reduced]);
 
   return (
     <>
@@ -189,22 +133,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
               data-intro-bg
               aria-hidden
             >
-              {!reduced && (
-                <video
-                  ref={videoRef}
-                  className="intro-video absolute inset-0 h-full w-full object-cover"
-                  src="/videos/intro-loop.mp4"
-                  poster="/videos/intro-poster.jpg"
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  controls={false}
-                  disablePictureInPicture
-                  aria-hidden
-                />
-              )}
+              {!reduced && <IntroLoop />}
               {/* Sombra entre video y contenido: atenúa el fondo sin apagarlo */}
               <div className="absolute inset-0 bg-black/25 md:bg-black/40" />
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(5,6,5,.28)_48%,rgba(5,6,5,.62)_100%)]" />
