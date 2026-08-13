@@ -33,31 +33,44 @@ export default function Header() {
           stuck ? 'border-b border-white/10 bg-black/80 backdrop-blur-xl' : 'border-b border-transparent'
         }`}
       >
-        <div className="mx-auto flex max-w-shell items-center gap-8 px-6 md:px-10">
-          <a href="#top" className={`flex flex-none items-center transition-all duration-300 ${stuck ? 'py-3' : 'py-5'}`} aria-label="Xipe Capital Group, inicio">
-            <Image src="/xipe-logo.png" alt="Xipe Capital Group" width={264} height={271} priority className={`w-auto transition-all duration-300 ${stuck ? 'h-9' : 'h-12'}`} />
+        <div className="mx-auto grid h-[4.25rem] max-w-shell grid-cols-[1fr_auto] items-center px-6 md:h-[4.5rem] md:px-12 lg:grid-cols-[1fr_auto_1fr] lg:px-16 xl:px-20">
+          <a href="#top" className="justify-self-start" aria-label="Xipe Capital Group, inicio">
+            <Image
+              src="/xipe-logo.png"
+              alt="Xipe Capital Group"
+              width={264}
+              height={271}
+              priority
+              className={`w-auto transition-all duration-300 ${stuck ? 'h-8' : 'h-9 md:h-10'}`}
+            />
           </a>
 
-          <nav className="ml-auto hidden lg:block" aria-label="Navegación principal">
-            <ul className="flex items-center gap-9">
+          <nav className="hidden justify-self-center lg:block" aria-label="Navegación principal">
+            <ul className="flex items-center gap-1">
               {NAV.map((item) => (
                 <li key={item.label}>
-                  <a href={item.href} className="group relative block py-2 text-[15px] text-text-muted transition-colors hover:text-text">
+                  <a
+                    href={item.href}
+                    className="group relative block px-3.5 py-2 text-[13px] font-medium tracking-[0.04em] text-text-muted transition-colors hover:text-text xl:px-4"
+                  >
                     {item.label}
-                    <span className="absolute inset-x-0 bottom-0 h-px w-0 bg-gold transition-all duration-300 ease-xipe group-hover:w-full" />
+                    <span className="absolute bottom-0.5 left-3.5 right-3.5 h-px origin-left scale-x-0 bg-gold transition-transform duration-300 ease-xipe group-hover:scale-x-100" />
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="ml-auto flex items-center gap-3 lg:ml-9">
+          <div className="flex items-center justify-end gap-3 justify-self-end">
             <button
               type="button"
               onClick={() => openDiagnosis('header')}
-              className="hidden min-h-[46px] items-center rounded-sm bg-gold px-6 text-[14px] font-semibold uppercase tracking-[.12em] text-black transition-all duration-200 hover:bg-gold-light sm:inline-flex"
+              className="group hidden min-h-[40px] items-center gap-2 rounded-sm bg-gold px-5 text-[12px] font-medium uppercase tracking-[.12em] text-black transition-opacity duration-200 hover:opacity-90 sm:inline-flex"
             >
               Diseñar mi arquitectura
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden>
+                <path d="M4 12h15M13 6l6 6-6 6" />
+              </svg>
             </button>
             <button
               type="button"
@@ -125,10 +138,10 @@ export default function Header() {
 
             <button
               type="button"
-              onClick={() => { setOpen(false); trackEvent('method_link_click', { from: 'menu' }); document.querySelector('#metodo')?.scrollIntoView({ behavior: 'smooth' }); }}
+              onClick={() => { setOpen(false); trackEvent('method_link_click', { from: 'menu' }); document.querySelector('#diagnostico')?.scrollIntoView({ behavior: 'smooth' }); }}
               className="mt-4 min-h-[52px] w-full rounded-sm border border-white/15 px-6 text-[15px] uppercase tracking-[.12em] text-text-muted"
             >
-              Explorar el método
+              Empezar diagnóstico
             </button>
           </motion.div>
         )}

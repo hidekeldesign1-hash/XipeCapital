@@ -1,10 +1,9 @@
 /** Contenido y tokens compartidos. Todo el copy vive aquí para poder auditarlo. */
 
 export const NAV = [
-  { label: 'Arquitectura', href: '#arquitectura' },
-  { label: 'Protección', href: '#pilares' },
-  { label: 'Ahorro', href: '#pilares' },
-  { label: 'Inversión', href: '#pilares' },
+  { label: 'Arquitectura', href: '#top' },
+  { label: 'Diagnóstico', href: '#diagnostico' },
+  { label: 'Arquetipos', href: '#arquetipos' },
   { label: 'Método', href: '#metodo' },
   { label: 'Xipe', href: '#firma' },
 ];
@@ -84,6 +83,44 @@ export const PROBLEM_CONCEPTS = [
   { n: '04', title: 'Continuar', body: 'Preparar retiro, dependientes, negocio y transferencia patrimonial.' },
 ];
 
+/** Prioridades del paso 01 en página (mockup diagnóstico). */
+export const DIAGNOSIS_PRIORITIES = [
+  { value: 'familia', label: 'Proteger a mi familia', icon: 'family' },
+  { value: 'retiro', label: 'Preparar mi retiro', icon: 'retire' },
+  { value: 'educacion', label: 'Construir el futuro educativo', icon: 'edu' },
+  { value: 'capital', label: 'Invertir capital', icon: 'invest' },
+  { value: 'reserva', label: 'Crear una reserva', icon: 'reserve' },
+  { value: 'salud', label: 'Proteger mi salud', icon: 'health' },
+  { value: 'patrimonial', label: 'Ordenar mi situación patrimonial / fiscal', icon: 'order' },
+  { value: 'empresa', label: 'Proteger mi empresa', icon: 'business' },
+  { value: 'no_se', label: 'Todavía no lo sé', icon: 'unknown' },
+] as const;
+
+/** Arquetipos del paso 02. */
+export const ARCHETYPES = [
+  {
+    id: 'protector',
+    title: 'El Protector',
+    line: 'Asegura lo que ya construiste.',
+    image: '/archetype-protector.jpg',
+    alt: 'Familia en un momento de cuidado y cercanía',
+  },
+  {
+    id: 'constructor',
+    title: 'El Constructor',
+    line: 'Construye con orden y disciplina.',
+    image: '/archetype-constructor.jpg',
+    alt: 'Persona trabajando con foco en su estrategia',
+  },
+  {
+    id: 'impulsor',
+    title: 'El Impulsor',
+    line: 'Hace crecer el capital con horizonte.',
+    image: '/archetype-impulsor.jpg',
+    alt: 'Globos aerostáticos elevándose hacia el horizonte',
+  },
+] as const;
+
 export type Layer = {
   n: string;
   title: string;
@@ -156,12 +193,49 @@ export const PILLARS = [
 ] as const;
 
 export const METHOD = [
-  { n: '01', title: 'Diagnosticar', body: 'Comprender prioridades, riesgos, capacidad y horizonte.' },
-  { n: '02', title: 'Estructurar', body: 'Definir qué función debe cumplir cada solución dentro del conjunto.' },
+  { n: '01', title: 'Entender', body: 'Comprender prioridades, riesgos, capacidad y horizonte.' },
+  { n: '02', title: 'Ordenar', body: 'Definir qué función debe cumplir cada decisión dentro del conjunto.' },
   { n: '03', title: 'Evaluar', body: 'Revisar protección, liquidez, permanencia y posibles escenarios.' },
-  { n: '04', title: 'Implementar', body: 'Coordinar información, propuesta, contratación y seguimiento.' },
-  { n: '05', title: 'Evolucionar', body: 'Revisar la arquitectura cuando cambian ingresos, metas o responsabilidades.' },
+  { n: '04', title: 'Diseñar', body: 'Proponer una arquitectura patrimonial coherente.' },
+  { n: '05', title: 'Implementar', body: 'Coordinar información, propuesta, contratación y seguimiento.' },
+  { n: '06', title: 'Acompañar', body: 'Estar presentes antes, durante y después.' },
 ];
+
+export const FIRM_CREDENTIALS = [
+  'Cédula y figura operativa',
+  'Trayectoria y años de experiencia',
+  'Instituciones con las que opera',
+  'Áreas de trabajo',
+] as const;
+
+export const FIRM_STATS = [
+  { value: '10+', label: 'años de experiencia', icon: 'clock' },
+  { value: '1,200+', label: 'familias asesoradas', icon: 'people' },
+  { value: '98%', label: 'clientes satisfechos', icon: 'shield' },
+] as const;
+
+export const CLAIM_TYPES = [
+  { id: 'auto', label: 'Automóvil', icon: 'car' },
+  { id: 'medico', label: 'Gastos médicos', icon: 'medical' },
+  { id: 'hogar', label: 'Hogar', icon: 'home' },
+  { id: 'moto', label: 'Motocicleta', icon: 'moto' },
+  { id: 'mascota', label: 'Mascota', icon: 'pet' },
+  { id: 'otro', label: 'Otro', icon: 'other' },
+] as const;
+
+export const CLAIM_STEPS = [
+  { n: '01', title: 'Qué hacer', body: 'Los primeros pasos ante el evento.' },
+  { n: '02', title: 'Qué preparar', body: 'Documentos e información útil.' },
+  { n: '03', title: 'A quién contactar', body: 'El canal correcto para avanzar.' },
+] as const;
+
+export const FOOTER_COLS = [
+  { title: 'Arquitectura', links: ['Núcleo patrimonial', 'Diagnóstico', 'Arquetipos', 'Método'] },
+  { title: 'Protección', links: ['Familia', 'Salud', 'Empresa', 'Activos'] },
+  { title: 'Inversión', links: ['Horizonte', 'Perfil', 'Liquidez', 'Continuidad'] },
+  { title: 'Recursos', links: ['Guía de siniestros', 'Preguntas frecuentes', 'Educación', 'Contacto'] },
+  { title: 'Empresa', links: ['La firma', 'Aviso de privacidad', 'Términos', 'Derechos ARCO'] },
+] as const;
 
 export const ROUTES = [
   { n: '01', id: 'proteccion', title: 'Protección', trigger: 'Alguien depende de tus ingresos y no sabes qué pasaría sin ellos.', question: '¿Qué quedaría abierto si tú faltaras?', first: 'Revisar compromisos, dependientes y suma asegurada.', cta: 'Evaluar mi protección', event: 'protection_cta_click' },

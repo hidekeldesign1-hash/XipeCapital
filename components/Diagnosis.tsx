@@ -5,7 +5,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { STEPS, EMPTY_CONTACT, buildResult, buildCrmPayload, type Answers, type Contact } from '@/lib/diagnosis';
 import { trackEvent } from '@/lib/tracking';
 
-type Ctx = { open: (source?: string) => void; close: () => void; isOpen: boolean };
+type OpenOpts = { priority?: string };
+type Ctx = {
+  open: (source?: string, opts?: OpenOpts) => void;
+  close: () => void;
+  isOpen: boolean;
+};
 const DiagnosisCtx = createContext<Ctx>({ open: () => {}, close: () => {}, isOpen: false });
 export const useDiagnosis = () => useContext(DiagnosisCtx);
 
@@ -21,10 +26,20 @@ export default function DiagnosisProvider({ children }: { children: React.ReactN
   const panelRef = useRef<HTMLDivElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
 
-  const open = useCallback((source = 'unknown') => {
+  const open = useCallback((source = 'unknown', opts?: OpenOpts) => {
     lastFocus.current = document.activeElement as HTMLElement;
+    if (opts?.priority) {
+      setAnswers({ primary_priority: opts.priority });
+      setStep(1);
+    } else {
+      setAnswers({});
+      setStep(0);
+    }
+    setContact(EMPTY_CONTACT);
+    setSent(false);
+    setErrors({});
     setOpen(true);
-    trackEvent('diagnosis_started', { source });
+    trackEvent('diagnosis_started', { source, priority: opts?.priority });
   }, []);
 
   const close = useCallback(() => {

@@ -63,14 +63,14 @@ em, i, cite, address, dfn, var { font-style: normal; }
 }
 
 /* ── Tipografía ── */
-.t-display { font-family: var(--font-manrope), system-ui, sans-serif; font-weight: 600; letter-spacing: -.035em; line-height: 1.02; text-wrap: balance; }
+.t-display { font-family: var(--font-manrope), system-ui, sans-serif; font-weight: 500; letter-spacing: -.028em; line-height: 1.08; text-wrap: balance; }
 .t-h1 { font-size: clamp(2.625rem, 1.4rem + 5.4vw, 6.5rem); }
-.t-h2 { font-size: clamp(2rem, 1.35rem + 2.9vw, 3.9rem); line-height: 1.04; }
-.t-h3 { font-size: clamp(1.4rem, 1.15rem + 1.1vw, 2.1rem); line-height: 1.12; }
-.t-h4 { font-size: clamp(1.125rem, 1.05rem + .35vw, 1.35rem); line-height: 1.22; letter-spacing: -.02em; }
-.t-lede { font-size: clamp(1.0625rem, 1rem + .4vw, 1.25rem); line-height: 1.55; letter-spacing: -.008em; }
-.t-body { font-size: 1rem; line-height: 1.68; }
-.t-label { font-size: .875rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.t-h2 { font-size: clamp(1.65rem, 1.15rem + 1.8vw, 2.75rem); line-height: 1.12; }
+.t-h3 { font-size: clamp(1.2rem, 1.05rem + .7vw, 1.55rem); line-height: 1.2; }
+.t-h4 { font-size: clamp(1.05rem, 1rem + .25vw, 1.2rem); line-height: 1.28; letter-spacing: -.01em; }
+.t-lede { font-size: clamp(1rem, .95rem + .25vw, 1.125rem); line-height: 1.65; letter-spacing: 0; font-weight: 400; }
+.t-body { font-size: 1rem; line-height: 1.7; font-weight: 400; }
+.t-label { font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
 
 /* Palabra destacada del H1: luz champaña, sin cursiva */
 .t-glow {
@@ -124,6 +124,57 @@ em, i, cite, address, dfn, var { font-style: normal; }
   100% { offset-distance: 100%; opacity: 0; }
 }
 
+/* ── Núcleo patrimonial: glow + marcos + flujo de luz ── */
+.core-halo {
+  animation: core-halo-breathe 5.5s ease-in-out infinite;
+}
+@keyframes core-halo-breathe {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 1; }
+}
+
+.core-nucleus {
+  box-shadow: 0 0 0 10px rgba(5, 6, 5, 0.92);
+}
+
+.core-ring-spin {
+  animation: core-spin 72s linear infinite;
+}
+.core-ring-spin-rev {
+  animation: core-spin-rev 96s linear infinite;
+}
+@keyframes core-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes core-spin-rev {
+  from { transform: rotate(45deg); }
+  to { transform: rotate(-315deg); }
+}
+
+/* Flujo idle: centro → nodo */
+.core-flow-idle {
+  opacity: 0.35;
+  animation: core-dash-out var(--dur, 10s) linear infinite;
+  animation-delay: var(--dl, 0s);
+}
+@keyframes core-dash-out {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -100; }
+}
+
+/* Flujo hover: nodo → núcleo */
+.core-flow-in {
+  animation: core-dash-in 1.1s linear infinite;
+}
+@keyframes core-dash-in {
+  from { stroke-dashoffset: -100; }
+  to { stroke-dashoffset: 0; }
+}
+
+.core-node-dot--hot {
+  filter: none;
+}
+
 /* ── Barras de scroll internas ── */
 .no-bar { scrollbar-width: none; }
 .no-bar::-webkit-scrollbar { display: none; }
@@ -151,6 +202,84 @@ em, i, cite, address, dfn, var { font-style: normal; }
   }
 }
 
+/* ── Ornamento lateral dorado (trazos, pulso, flujo) ── */
+.side-glyph {
+  overflow: visible;
+  --gold: #C9A765;
+  --glow: #E6D09A;
+  opacity: 0.6;
+}
+.glyph-line {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.glyph-thin {
+  stroke-width: 1.15;
+  opacity: 0.74;
+}
+.glyph-trace {
+  stroke-dasharray: var(--len, 700);
+  stroke-dashoffset: var(--len, 700);
+  animation: glyph-draw var(--time, 7s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+.glyph-flow {
+  stroke-dasharray: 3 11;
+  animation: glyph-flow var(--time, 4s) linear var(--delay, 0s) infinite;
+}
+.glyph-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: glyph-pulse var(--time, 4s) ease-in-out var(--delay, 0s) infinite;
+}
+.glyph-float {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: glyph-float var(--time, 5s) ease-in-out var(--delay, 0s) infinite alternate;
+}
+.glyph-spin {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: glyph-spin var(--time, 13s) linear var(--delay, 0s) infinite;
+}
+.glyph-blink {
+  animation: glyph-blink var(--time, 2.3s) ease-in-out var(--delay, 0s) infinite;
+}
+@keyframes glyph-draw {
+  0%, 8% { stroke-dashoffset: var(--len, 700); opacity: 0.28; }
+  70%, 100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes glyph-flow {
+  to { stroke-dashoffset: -28; }
+}
+@keyframes glyph-pulse {
+  0%, 100% { transform: scale(0.96); opacity: 0.55; }
+  50% { transform: scale(1.045); opacity: 1; }
+}
+@keyframes glyph-float {
+  from { transform: translateY(-4px); }
+  to { transform: translateY(5px); }
+}
+@keyframes glyph-spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes glyph-blink {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+.pyramid-glow {
+  filter: drop-shadow(0 0 28px rgba(201, 167, 101, .28));
+  animation: pyramid-pulse 6s ease-in-out infinite;
+}
+@keyframes pyramid-pulse {
+  0%, 100% { filter: drop-shadow(0 0 22px rgba(201, 167, 101, .22)); }
+  50% { filter: drop-shadow(0 0 40px rgba(201, 167, 101, .4)); }
+}
+
 /* ── Movimiento reducido ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -161,4 +290,16 @@ em, i, cite, address, dfn, var { font-style: normal; }
   }
   .spark, .glow { display: none; }
   .intro-cta { animation: none; }
+  .pyramid-glow,
+  .glyph-trace,
+  .glyph-flow,
+  .glyph-pulse,
+  .glyph-float,
+  .glyph-spin,
+  .glyph-blink { animation: none !important; }
+  .core-halo,
+  .core-ring-spin,
+  .core-ring-spin-rev,
+  .core-flow-idle,
+  .core-flow-in { animation: none !important; }
 }

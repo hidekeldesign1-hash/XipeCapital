@@ -1,18 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EASE } from '@/lib/animations';
 import { trackEvent, trackOnce } from '@/lib/tracking';
 
+/** 10s nativos → ~13.3s a 0.75x para un loop más pausado */
+const INTRO_PLAYBACK_RATE = 0.75;
+
 /**
  * Puerta de entrada al sitio.
- * Fondo preparado para una animación en loop (canvas / secuencia).
- * El CTA revela la landing con una salida suave.
+ * Fondo: video en loop suave (public/videos/intro-loop.mp4).
  */
 export default function IntroGate({ children }: { children: React.ReactNode }) {
   const [visible, setVisible] = useState(true);
+  const [reduced, setReduced] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     document.body.classList.toggle('is-locked', visible);
@@ -22,6 +26,28 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (visible) trackOnce('intro_viewed');
   }, [visible]);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(mq.matches);
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!visible || reduced) return;
+    const v = videoRef.current;
+    if (!v) return;
+    v.playbackRate = INTRO_PLAYBACK_RATE;
+    const play = () => {
+      v.playbackRate = INTRO_PLAYBACK_RATE;
+      void v.play().catch(() => {});
+    };
+    play();
+    v.addEventListener('loadeddata', play);
+    return () => v.removeEventListener('loadeddata', play);
+  }, [visible, reduced]);
 
   const enter = () => {
     trackEvent('intro_enter_click');
@@ -46,11 +72,25 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            {/* Slot de fondo: aquí irá la animación en loop */}
             <div className="pointer-events-none absolute inset-0" data-intro-bg aria-hidden>
-              <div className="grid-bg opacity-70" />
-              <span className="glow absolute left-1/2 top-[28%] h-[min(90vw,720px)] w-[min(90vw,720px)] -translate-x-1/2 -translate-y-1/2" />
-              <span className="glow glow--signal absolute -bottom-32 left-1/2 h-[420px] w-[420px] -translate-x-1/2 opacity-80" />
+              {!reduced && (
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  src="/videos/intro-loop.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  aria-hidden
+                />
+              )}
+              {/* Sombra entre video y contenido: atenúa el fondo sin apagarlo */}
+              <div className="absolute inset-0 bg-black/55" />
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(5,6,5,.35)_0%,rgba(5,6,5,.55)_42%,rgba(5,6,5,.82)_100%)]" />
+              <div className="absolute inset-x-0 top-0 h-[28%] bg-gradient-to-b from-black/50 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-[32%] bg-gradient-to-t from-black/60 to-transparent" />
             </div>
 
             <div className="relative z-10 flex w-full max-w-[520px] flex-col items-center px-6 text-center">
@@ -58,7 +98,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
                 initial={{ opacity: 0, y: 22, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ duration: 0.85, ease: EASE }}
-                className="mb-10"
+                className="mb-8"
               >
                 <Image
                   src="/xipe-logo.png"
@@ -66,7 +106,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
                   width={264}
                   height={271}
                   priority
-                  className="mx-auto h-auto w-[min(56vw,220px)]"
+                  className="mx-auto h-auto w-[min(52vw,200px)]"
                 />
               </motion.div>
 
@@ -74,9 +114,9 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.18, duration: 0.7, ease: EASE }}
-                className="t-label mb-5 flex items-center justify-center gap-3 text-gold"
+                className="t-label mb-6 flex items-center justify-center gap-2 text-gold"
               >
-                <span className="fret" aria-hidden />
+                <span aria-hidden>→</span>
                 Arquitectura patrimonial
               </motion.p>
 
@@ -84,7 +124,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.28, duration: 0.75, ease: EASE }}
-                className="t-display t-h3 mb-12 max-w-[16ch] text-text"
+                className="t-display t-h2 mb-10 max-w-[14ch] text-text sm:max-w-[16ch]"
               >
                 Tu patrimonio necesita una <span className="t-glow">arquitectura</span>.
               </motion.p>
@@ -97,7 +137,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
                 transition={{ delay: 0.42, duration: 0.7, ease: EASE }}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="intro-cta group relative inline-flex min-h-[64px] items-center justify-center gap-3 overflow-hidden rounded-sm bg-gold px-10 text-[15px] font-semibold uppercase tracking-[.14em] text-black transition-colors duration-200 hover:bg-gold-light"
+                className="intro-cta group relative inline-flex min-h-[64px] items-center justify-center gap-3 overflow-hidden rounded-sm bg-gold px-10 text-[14px] font-semibold uppercase tracking-[.14em] text-black transition-colors duration-200 hover:bg-gold-light sm:text-[15px]"
               >
                 <span className="relative z-10">Diseñar mi arquitectura</span>
                 <svg

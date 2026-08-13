@@ -4,6 +4,7 @@ import './globals.css';
 import MotionProvider from '@/components/MotionProvider';
 import DiagnosisProvider from '@/components/Diagnosis';
 import IntroGate from '@/components/IntroGate';
+import SiteGlyphRails from '@/components/SiteGlyphRails';
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <MotionProvider>
           <DiagnosisProvider>
+            <SiteGlyphRails />
             <IntroGate>{children}</IntroGate>
           </DiagnosisProvider>
         </MotionProvider>

@@ -35,7 +35,7 @@ export default function StickyCTA() {
           <button
             type="button"
             onClick={() => { trackEvent('mobile_sticky_cta_click'); open('sticky'); }}
-            className="min-h-[54px] w-full rounded-sm bg-gold text-[15px] font-semibold uppercase tracking-[.13em] text-black"
+            className="min-h-[54px] w-full rounded-sm bg-gold text-[15px] font-medium uppercase tracking-[.13em] text-black transition-opacity hover:opacity-90"
           >
             Diseñar mi arquitectura
           </button>

@@ -2,16 +2,12 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyCTA from '@/components/StickyCTA';
 import Hero from '@/sections/Hero';
-import ProblemStatement from '@/sections/ProblemStatement';
-import ArchitectureLayers from '@/sections/ArchitectureLayers';
-import Pillars from '@/sections/Pillars';
+import Diagnostico from '@/sections/Diagnostico';
+import Arquetipos from '@/sections/Arquetipos';
 import Method from '@/sections/Method';
-import Routes from '@/sections/Routes';
-import Authority from '@/sections/Authority';
-import ProcessProof from '@/sections/ProcessProof';
-import Education from '@/sections/Education';
-import FAQ from '@/sections/FAQ';
-import FinalCTA from '@/sections/FinalCTA';
+import LaFirma from '@/sections/LaFirma';
+import Siniestros from '@/sections/Siniestros';
+import ArquitecturaCierre from '@/sections/ArquitecturaCierre';
 
 export default function Page() {
   return (
@@ -19,16 +15,12 @@ export default function Page() {
       <Header />
       <main id="main">
         <Hero />
-        <ProblemStatement />
-        <ArchitectureLayers />
-        <Pillars />
+        <Diagnostico />
+        <Arquetipos />
         <Method />
-        <Routes />
-        <Authority />
-        <ProcessProof />
-        <Education />
-        <FAQ />
-        <FinalCTA />
+        <LaFirma />
+        <Siniestros />
+        <ArquitecturaCierre />
       </main>
       <Footer />
       <StickyCTA />

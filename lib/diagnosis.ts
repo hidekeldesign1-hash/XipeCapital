@@ -27,13 +27,15 @@ export const STEPS: Step[] = [
     n: '01',
     question: '¿Qué quieres resolver primero?',
     options: [
-      { value: 'familia', label: 'Proteger a mi familia o ingresos' },
-      { value: 'ahorro', label: 'Construir ahorro' },
-      { value: 'capital', label: 'Hacer crecer mi capital' },
+      { value: 'familia', label: 'Proteger a mi familia' },
+      { value: 'retiro', label: 'Preparar mi retiro' },
+      { value: 'educacion', label: 'Construir el futuro educativo' },
+      { value: 'capital', label: 'Invertir capital' },
+      { value: 'reserva', label: 'Crear una reserva' },
       { value: 'salud', label: 'Proteger mi salud' },
-      { value: 'activo', label: 'Proteger un automóvil o activo' },
-      { value: 'retiro', label: 'Preparar retiro y continuidad' },
-      { value: 'no_se', label: 'No estoy seguro' },
+      { value: 'patrimonial', label: 'Ordenar mi situación patrimonial / fiscal' },
+      { value: 'empresa', label: 'Proteger mi empresa' },
+      { value: 'no_se', label: 'Todavía no lo sé' },
     ],
   },
   {
@@ -124,30 +126,40 @@ export function buildResult(a: Answers): Result {
       layers: ['Protección', 'Ahorro'],
       reading: 'Tu prioridad se concentra en la base de la arquitectura: qué ocurre con los ingresos y con quienes dependen de ellos.',
     },
-    salud: {
-      focus: 'Protección y liquidez',
-      layers: ['Protección', 'Ahorro'],
-      reading: 'La prioridad está en evitar que un evento médico obligue a liquidar lo que ya está funcionando.',
+    retiro: {
+      focus: 'Continuidad y horizonte',
+      layers: ['Continuidad', 'Inversión'],
+      reading: 'La prioridad es de largo plazo, donde la sostenibilidad de la aportación pesa más que el punto de partida.',
     },
-    activo: {
-      focus: 'Protección de activos',
-      layers: ['Protección'],
-      reading: 'La prioridad está acotada a un activo concreto, y eso permite empezar por una revisión puntual antes de mirar el conjunto.',
-    },
-    ahorro: {
-      focus: 'Liquidez y estructura',
-      layers: ['Ahorro', 'Protección'],
-      reading: 'La prioridad está en construir capacidad de respuesta antes de comprometer capital a largo plazo.',
+    educacion: {
+      focus: 'Horizonte educativo',
+      layers: ['Ahorro', 'Inversión'],
+      reading: 'La prioridad apunta a un objetivo con fecha: conviene separar reserva inmediata de capital con horizonte educativo.',
     },
     capital: {
       focus: 'Crecimiento con base revisada',
       layers: ['Inversión', 'Ahorro'],
       reading: 'La prioridad apunta a crecimiento. Conviene confirmar que la base y la reserva no queden expuestas al asignar capital.',
     },
-    retiro: {
-      focus: 'Continuidad y horizonte',
-      layers: ['Continuidad', 'Inversión'],
-      reading: 'La prioridad es de largo plazo, donde la sostenibilidad de la aportación pesa más que el punto de partida.',
+    reserva: {
+      focus: 'Liquidez y estructura',
+      layers: ['Ahorro', 'Protección'],
+      reading: 'La prioridad está en construir capacidad de respuesta antes de comprometer capital a largo plazo.',
+    },
+    salud: {
+      focus: 'Protección y liquidez',
+      layers: ['Protección', 'Ahorro'],
+      reading: 'La prioridad está en evitar que un evento médico obligue a liquidar lo que ya está funcionando.',
+    },
+    patrimonial: {
+      focus: 'Orden patrimonial',
+      layers: ['Protección', 'Ahorro', 'Continuidad'],
+      reading: 'La prioridad es ordenar lo existente: qué función cumple cada pieza y dónde hay huecos o duplicidades.',
+    },
+    empresa: {
+      focus: 'Continuidad empresarial',
+      layers: ['Protección', 'Continuidad'],
+      reading: 'La prioridad está en la empresa: ingresos, continuidad y el impacto patrimonial de un imprevisto operativo.',
     },
     no_se: {
       focus: 'Diagnóstico de base',
