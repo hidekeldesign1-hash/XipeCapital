@@ -211,20 +211,7 @@ em, i, cite, address, dfn, var { font-style: normal; }
   -webkit-mask-image: -webkit-radial-gradient(white, black);
   mask-image: radial-gradient(white, black);
 }
-.intro-video-engine {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  pointer-events: none;
-}
-.intro-video-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.intro-video {
   pointer-events: none;
 }
 .intro-video::-webkit-media-controls,
