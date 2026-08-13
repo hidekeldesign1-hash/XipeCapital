@@ -49,7 +49,11 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-body.is-locked { overflow: hidden; }
+html.is-locked,
+body.is-locked {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
 
 /* Sin cursivas en ninguna parte del sitio. */
 em, i, cite, address, dfn, var { font-style: normal; }

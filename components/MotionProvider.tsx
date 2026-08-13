@@ -2,6 +2,7 @@
 
 import { useEffect, useState, createContext, useContext } from 'react';
 import { registerGsap, ScrollTrigger } from '@/lib/animations/gsap';
+import { setLenisInstance } from '@/lib/lenis-control';
 
 const ReducedCtx = createContext(false);
 export const useReducedMotionSafe = () => useContext(ReducedCtx);
@@ -31,6 +32,7 @@ export default function MotionProvider({ children }: { children: React.ReactNode
       const { default: Lenis } = await import('lenis');
 
       const lenis = new Lenis({ duration: 1.05, smoothWheel: true, wheelMultiplier: 1 });
+      setLenisInstance(lenis);
       lenis.on('scroll', ScrollTrigger.update);
 
       const loop = (time: number) => {
@@ -41,6 +43,7 @@ export default function MotionProvider({ children }: { children: React.ReactNode
 
       destroy = () => {
         cancelAnimationFrame(raf);
+        setLenisInstance(null);
         lenis.destroy();
       };
     })();

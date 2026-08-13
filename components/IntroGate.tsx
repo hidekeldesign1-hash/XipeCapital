@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EASE } from '@/lib/animations';
 import { trackEvent, trackOnce } from '@/lib/tracking';
+import { holdLenis, lenisJumpToTop, releaseLenis } from '@/lib/lenis-control';
 
 /** 10s nativos → ~13.3s a 0.75x para un loop más pausado */
 const INTRO_PLAYBACK_RATE = 0.75;
@@ -18,11 +19,79 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
   const [reduced, setReduced] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoReady, setVideoReady] = useState(false);
+  const [locking, setLocking] = useState(true);
+  const entered = useRef(false);
+
+  const enter = useCallback((from: 'cta' | 'click' | 'scroll') => {
+    if (entered.current) return;
+    entered.current = true;
+    trackEvent('intro_enter_click', { from });
+    lenisJumpToTop();
+    setVisible(false);
+  }, []);
 
   useEffect(() => {
-    document.body.classList.toggle('is-locked', visible);
-    return () => document.body.classList.remove('is-locked');
-  }, [visible]);
+    if (!locking) return;
+
+    holdLenis();
+    lenisJumpToTop();
+
+    const html = document.documentElement;
+    const body = document.body;
+    html.classList.add('is-locked');
+    body.classList.add('is-locked');
+    const prev = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    };
+    body.style.position = 'fixed';
+    body.style.top = '0';
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
+
+    let touchY = 0;
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      if (Math.abs(e.deltaY) > 8 || Math.abs(e.deltaX) > 8) enter('scroll');
+    };
+    const onTouchStart = (e: TouchEvent) => {
+      touchY = e.touches[0]?.clientY ?? 0;
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const y = e.touches[0]?.clientY ?? touchY;
+      if (Math.abs(y - touchY) > 36) enter('scroll');
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if ([' ', 'Spacebar', 'ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End'].includes(e.key)) {
+        e.preventDefault();
+        enter('scroll');
+      }
+    };
+
+    window.addEventListener('wheel', onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('keydown', onKey);
+
+    return () => {
+      html.classList.remove('is-locked');
+      body.classList.remove('is-locked');
+      body.style.position = prev.position;
+      body.style.top = prev.top;
+      body.style.left = prev.left;
+      body.style.right = prev.right;
+      body.style.width = prev.width;
+      window.removeEventListener('wheel', onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [locking, enter]);
 
   useEffect(() => {
     if (visible) trackOnce('intro_viewed');
@@ -85,18 +154,19 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
     };
   }, [visible, reduced]);
 
-  const enter = () => {
-    trackEvent('intro_enter_click');
-    setVisible(false);
-  };
-
   return (
     <>
       <div aria-hidden={visible || undefined} className={visible ? 'pointer-events-none select-none' : undefined}>
         {children}
       </div>
 
-      <AnimatePresence>
+      <AnimatePresence
+        onExitComplete={() => {
+          setLocking(false);
+          lenisJumpToTop();
+          releaseLenis();
+        }}
+      >
         {visible && (
           <motion.div
             key="intro"
@@ -107,6 +177,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
+            onClick={() => enter('click')}
           >
             <div className="pointer-events-none absolute inset-0" data-intro-bg aria-hidden>
               {!reduced && (
@@ -172,7 +243,10 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
 
               <motion.button
                 type="button"
-                onClick={enter}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  enter('cta');
+                }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.42, duration: 0.7, ease: EASE }}
