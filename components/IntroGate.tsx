@@ -17,6 +17,7 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
   const [visible, setVisible] = useState(true);
   const [reduced, setReduced] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle('is-locked', visible);
@@ -39,14 +40,49 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
     if (!visible || reduced) return;
     const v = videoRef.current;
     if (!v) return;
-    v.playbackRate = INTRO_PLAYBACK_RATE;
-    const play = () => {
+
+    const arm = () => {
+      v.muted = true;
+      v.defaultMuted = true;
+      v.playsInline = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', 'true');
+      v.setAttribute('webkit-playsinline', 'true');
       v.playbackRate = INTRO_PLAYBACK_RATE;
-      void v.play().catch(() => {});
     };
+
+    const play = () => {
+      arm();
+      const attempt = v.play();
+      if (attempt) {
+        void attempt
+          .then(() => setVideoReady(true))
+          .catch(() => {
+            /* iOS Low Power / políticas: reintento en el siguiente gesto */
+          });
+      }
+    };
+
+    arm();
     play();
-    v.addEventListener('loadeddata', play);
-    return () => v.removeEventListener('loadeddata', play);
+
+    const events = ['loadedmetadata', 'loadeddata', 'canplay', 'canplaythrough'] as const;
+    events.forEach((ev) => v.addEventListener(ev, play));
+    const onVis = () => {
+      if (document.visibilityState === 'visible') play();
+    };
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('pageshow', play);
+    window.addEventListener('touchstart', play, { passive: true, once: true });
+    window.addEventListener('click', play, { once: true });
+
+    return () => {
+      events.forEach((ev) => v.removeEventListener(ev, play));
+      document.removeEventListener('visibilitychange', onVis);
+      window.removeEventListener('pageshow', play);
+      window.removeEventListener('touchstart', play);
+      window.removeEventListener('click', play);
+    };
   }, [visible, reduced]);
 
   const enter = () => {
@@ -76,13 +112,18 @@ export default function IntroGate({ children }: { children: React.ReactNode }) {
               {!reduced && (
                 <video
                   ref={videoRef}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className={`intro-video absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${
+                    videoReady ? 'opacity-100' : 'opacity-0'
+                  }`}
                   src="/videos/intro-loop.mp4"
                   autoPlay
                   muted
                   loop
                   playsInline
                   preload="auto"
+                  controls={false}
+                  disablePictureInPicture
+                  onPlaying={() => setVideoReady(true)}
                   aria-hidden
                 />
               )}
