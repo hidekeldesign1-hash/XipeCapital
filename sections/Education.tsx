@@ -12,7 +12,7 @@ export default function Education() {
 
   return (
     <section id="recursos" className="relative bg-warm-white py-24 text-dark-text md:py-36">
-      <div className="mx-auto max-w-shell px-6 md:px-10">
+      <div className="mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <SectionLabel n="08" tone="light">Recursos</SectionLabel>
         <h2 className="t-display t-h2 mb-14 max-w-[20ch] text-dark-text">
           Comprender antes de decidir.

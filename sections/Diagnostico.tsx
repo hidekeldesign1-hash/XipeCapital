@@ -61,11 +61,11 @@ export default function Diagnostico() {
   const [selected, setSelected] = useState<string | null>('no_se');
 
   return (
-    <section id="diagnostico" className="relative overflow-hidden bg-black py-24 md:py-28 lg:py-32">
+    <section id="diagnostico" className="relative overflow-hidden bg-black py-24 md:py-28">
       <div className="grid-bg opacity-50" aria-hidden />
 
-      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10">
-        <div className="mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between md:gap-12">
+      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
+        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-12">
           <div>
             <p className="t-label mb-4 text-gold">
               <span className="text-gold-muted">—</span> 01 Diagnóstico
@@ -77,7 +77,7 @@ export default function Diagnostico() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
           {DIAGNOSIS_PRIORITIES.map((item, i) => {
             const on = selected === item.value;
             return (
@@ -93,10 +93,10 @@ export default function Diagnostico() {
                   trackEvent('diagnosis_step_completed', { step: '01', field: 'primary_priority', value: item.value });
                   open('diagnostico_section', { priority: item.value });
                 }}
-                className={`group flex min-h-[132px] flex-col items-center justify-center gap-4 rounded-sm border px-3 py-6 text-center transition-colors duration-300 sm:min-h-[148px] sm:px-4 ${
+                className={`group flex min-h-[132px] flex-col items-center justify-center gap-4 rounded-sm border px-3 py-6 text-center transition-all duration-300 sm:min-h-[148px] sm:px-4 ${
                   on
                     ? 'border-[#C4A77D]/35 bg-white/[0.03]'
-                    : 'border-white/10 bg-transparent hover:border-white/20'
+                    : 'border-white/10 bg-transparent hover:border-[#C4A77D]/35 hover:bg-white/[0.02]'
                 }`}
               >
                 <span className={`transition-colors duration-300 ${on ? 'text-gold-light' : 'text-gold group-hover:text-gold-light'}`}>

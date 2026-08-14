@@ -8,7 +8,7 @@ import { PROBLEM_CONCEPTS } from '@/lib/constants';
 export default function ProblemStatement() {
   return (
     <section className="relative bg-ivory py-24 text-dark-text md:py-36">
-      <div className="mx-auto max-w-shell px-6 md:px-10">
+      <div className="mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <div className="grid gap-14 lg:grid-cols-[1.15fr_.85fr] lg:gap-24">
           <div>
             <SectionLabel n="01" tone="light">La tesis</SectionLabel>

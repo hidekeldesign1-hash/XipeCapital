@@ -40,10 +40,10 @@ export default function LaFirma() {
   }, []);
 
   return (
-    <section id="firma" ref={ref} className="relative overflow-hidden bg-black py-24 md:py-28 lg:py-32">
+    <section id="firma" ref={ref} className="relative overflow-hidden bg-black py-24 md:py-28">
 
-      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10">
-        <div className="grid gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16 xl:gap-20">
+      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
+        <div className="grid items-start gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-16">
           {/* Columna foto + testimonio */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -51,12 +51,12 @@ export default function LaFirma() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <p className="t-label mb-6 text-gold lg:hidden">
+            <p className="t-label mb-4 text-gold lg:hidden">
               <span className="text-gold-muted">—</span> 06 La firma
             </p>
 
             <figure className="relative border border-white/10 bg-deep">
-              <span className="absolute left-3 top-3 z-10 grid h-8 w-8 place-items-center border border-white/15 bg-black/40 text-gold" aria-hidden>
+              <span className="absolute left-3 top-3 z-10 grid h-8 w-8 place-items-center border border-white/10 bg-black/40 text-gold" aria-hidden>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                   <path d="M4 12h16M12 4v16" />
                 </svg>
@@ -99,15 +99,15 @@ export default function LaFirma() {
             transition={{ duration: 0.7, delay: 0.08, ease: EASE }}
             className="lg:pt-2"
           >
-            <p className="t-label mb-6 hidden text-gold lg:block">
+            <p className="t-label mb-4 hidden text-gold lg:block">
               <span className="text-gold-muted">—</span> 06 La firma
             </p>
-            <h2 className="t-display t-h2 mb-7 max-w-[16ch] font-medium">
+            <h2 className="t-display t-h2 mb-6 max-w-[16ch] font-medium">
               La estructura organiza el proceso. El criterio humano dirige la{' '}
               <span className="text-gold">decisión</span>.
             </h2>
 
-            <p className="mb-9 max-w-[46ch] border-l border-white/15 pl-5 text-[16px] font-normal leading-relaxed tracking-wide text-text-muted md:text-[17px]">
+            <p className="mb-8 max-w-[46ch] border-l border-white/10 pl-5 text-[16px] font-normal leading-relaxed tracking-wide text-text-muted md:text-[17px]">
               Técnica y criterio se encuentran aquí: una arquitectura clara, explicada
               con calma, y un acompañamiento que no desaparece después de firmar.
             </p>
@@ -122,10 +122,10 @@ export default function LaFirma() {
               Responsable de la asesoría y del acompañamiento en Xipe Capital Group.
             </p>
 
-            <ul className="grid gap-3 sm:grid-cols-2">
+            <ul className="grid gap-6 sm:grid-cols-2">
               {FIRM_CREDENTIALS.map((t) => (
                 <li key={t}>
-                  <span className="flex min-h-[48px] items-center border border-white/10 px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] text-text-muted">
+                  <span className="flex min-h-[48px] items-center border border-white/10 px-4 py-3 text-[12px] font-medium uppercase tracking-[0.12em] text-text-muted transition-all duration-300 hover:border-[#C4A77D]/35 hover:bg-white/[0.02] hover:text-text">
                     {t}
                   </span>
                 </li>
@@ -134,21 +134,23 @@ export default function LaFirma() {
           </motion.div>
         </div>
 
-        {/* Stats */}
-        <div className="mt-14 grid gap-6 border-t border-white/10 pt-10 sm:grid-cols-3 sm:gap-8 md:mt-16 md:pt-12">
-          {FIRM_STATS.map((s) => (
-            <div key={s.label} className="flex items-start gap-4">
-              <span className="mt-1 text-gold" aria-hidden>
-                {STAT_ICONS[s.icon]}
-              </span>
-              <div>
-                <p className="t-display text-[clamp(2rem,1.4rem+2vw,2.75rem)] leading-none text-text">
-                  {s.value}
-                </p>
-                <p className="mt-2 text-[14px] text-text-muted">{s.label}</p>
+        {/* Stats — unidad editorial */}
+        <div className="mt-12 border-y border-white/10 py-10 sm:py-12">
+          <div className="flex flex-col items-center gap-8 sm:flex-row sm:justify-center sm:gap-12 md:gap-16 lg:gap-24">
+            {FIRM_STATS.map((s) => (
+              <div key={s.label} className="flex items-center gap-4">
+                <span className="text-gold" aria-hidden>
+                  {STAT_ICONS[s.icon]}
+                </span>
+                <div>
+                  <p className="t-display text-[clamp(2rem,1.4rem+2vw,2.75rem)] leading-none text-text">
+                    {s.value}
+                  </p>
+                  <p className="mt-2 text-[14px] text-text-muted">{s.label}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

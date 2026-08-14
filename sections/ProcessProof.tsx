@@ -19,8 +19,8 @@ export default function ProcessProof() {
   }, []);
 
   return (
-    <section ref={ref} className="relative bg-graphite py-24 md:py-36">
-      <div className="mx-auto max-w-shell px-6 md:px-10">
+    <section ref={ref} className="relative bg-graphite py-24 md:py-28">
+      <div className="mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <SectionLabel n="07">Prueba de proceso</SectionLabel>
         <h2 className="t-display t-h2 mb-14 max-w-[20ch]">
           La confianza no se declara. <span className="t-glow">Se diseña en cada paso.</span>

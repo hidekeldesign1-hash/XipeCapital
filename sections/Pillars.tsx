@@ -11,8 +11,8 @@ export default function Pillars() {
   const { open } = useDiagnosis();
 
   return (
-    <section id="pilares" className="relative bg-graphite py-24 md:py-36">
-      <div className="mx-auto max-w-shell px-6 md:px-10">
+    <section id="pilares" className="relative bg-graphite py-24 md:py-28">
+      <div className="mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <SectionLabel n="03">Los pilares</SectionLabel>
         <h2 className="t-display t-h2 mb-16 max-w-[18ch]">
           Cada pilar resuelve algo distinto. <span className="t-glow">Ninguno sustituye a otro.</span>

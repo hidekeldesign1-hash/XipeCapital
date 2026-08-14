@@ -13,9 +13,9 @@ export default function Arquetipos() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section id="arquetipos" className="relative overflow-hidden bg-black py-24 md:py-28 lg:py-32">
-      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10">
-        <div className="mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between md:gap-12">
+    <section id="arquetipos" className="relative overflow-hidden bg-black py-24 md:py-28">
+      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
+        <div className="mb-12 flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-12">
           <div>
             <p className="t-label mb-4 text-gold">
               <span className="text-gold-muted">—</span> 02 Arquetipos
@@ -27,7 +27,7 @@ export default function Arquetipos() {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:gap-5 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3 md:items-stretch">
           {ARCHETYPES.map((a, i) => {
             const on = active === a.id;
             return (
@@ -43,8 +43,10 @@ export default function Arquetipos() {
                   trackEvent('diagnosis_step_completed', { step: '02', field: 'archetype', value: a.id });
                   open('arquetipos', { priority: a.id === 'protector' ? 'familia' : a.id === 'constructor' ? 'reserva' : 'capital' });
                 }}
-                className={`group relative overflow-hidden rounded-sm border text-left transition-colors duration-300 ${
-                  on ? 'border-[#C4A77D]/30' : 'border-white/10 hover:border-white/20'
+                className={`group relative flex h-full flex-col overflow-hidden rounded-sm border text-left transition-all duration-300 ${
+                  on
+                    ? 'border-[#C4A77D]/35 bg-white/[0.02]'
+                    : 'border-white/10 hover:border-[#C4A77D]/35 hover:bg-white/[0.02]'
                 }`}
               >
                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -56,16 +58,16 @@ export default function Arquetipos() {
                     className="object-cover transition-transform duration-700 ease-xipe group-hover:scale-[1.04]"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
-                  <span className="absolute left-4 top-4 grid h-9 w-9 place-items-center border border-white/15 bg-black/40 text-gold" aria-hidden>
+                  <span className="absolute left-4 top-4 grid h-9 w-9 place-items-center border border-white/10 bg-black/40 text-gold" aria-hidden>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                       <path d="M4 12h16M12 4v16" />
                     </svg>
                   </span>
                 </div>
 
-                <div className="bg-black px-5 py-5 sm:px-6 sm:py-6">
+                <div className="flex flex-1 flex-col bg-black px-5 py-5 sm:px-6 sm:py-6">
                   <h3 className="t-label mb-3 font-medium text-gold">{a.title}</h3>
-                  <p className="border-t border-white/10 pt-3 text-[15px] font-normal leading-relaxed tracking-wide text-text-muted">
+                  <p className="mt-auto border-t border-white/10 pt-3 text-[15px] font-normal leading-relaxed tracking-wide text-text-muted">
                     {a.line}
                   </p>
                 </div>

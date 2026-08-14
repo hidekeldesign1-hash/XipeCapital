@@ -19,10 +19,10 @@ export default function FinalCTA() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-black py-28 text-center md:py-40">
+    <section className="relative overflow-hidden bg-black py-24 text-center md:py-28">
       <span className="glow absolute left-1/2 top-1/3 h-[760px] w-[760px] -translate-x-1/2" aria-hidden />
 
-      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10">
+      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <motion.svg
           viewBox="0 0 440 300"
           className="mx-auto mb-12 w-full max-w-[380px]"

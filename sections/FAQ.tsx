@@ -10,8 +10,8 @@ export default function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="relative bg-black py-24 md:py-36">
-      <div className="mx-auto max-w-shell px-6 md:px-10">
+    <section id="faq" className="relative bg-black py-24 md:py-28">
+      <div className="mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <SectionLabel n="09">Preguntas</SectionLabel>
         <h2 className="t-display t-h2 mb-14 max-w-[20ch]">
           Antes de avanzar, <span className="t-glow">aclaremos lo importante.</span>

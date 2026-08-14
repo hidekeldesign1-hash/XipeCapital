@@ -145,10 +145,10 @@ export default function PatrimonialCore() {
                   onMouseLeave={() => setHot(null)}
                   onFocus={() => activate(n.id)}
                   onBlur={() => setHot(null)}
-                  className={`group flex items-center gap-3 border px-3.5 py-3 transition-colors duration-300 ${
+                  className={`group flex items-center gap-3 border px-3.5 py-3 transition-all duration-300 ${
                     on
-                      ? 'border-[#C4A77D]/30 bg-white/[0.03]'
-                      : 'border-white/10 hover:border-white/20'
+                      ? 'border-[#C4A77D]/35 bg-white/[0.03]'
+                      : 'border-white/10 hover:border-[#C4A77D]/35 hover:bg-white/[0.02]'
                   }`}
                 >
                   <span

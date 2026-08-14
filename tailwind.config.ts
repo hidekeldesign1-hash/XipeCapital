@@ -18,7 +18,7 @@ const config: Config = {
         'gold-muted': '#806A42',
         signal: '#9DE4D0',
         text: '#F4F2EC',
-        'text-muted': '#A7AAA4',
+        'text-muted': '#C2C5BE',
         'dark-text': '#111310',
       },
       fontFamily: {

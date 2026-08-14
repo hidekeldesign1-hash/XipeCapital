@@ -30,18 +30,18 @@ export default function Method() {
   }, []);
 
   return (
-    <section id="metodo" className="relative z-10 overflow-hidden bg-white py-24 text-dark-text md:py-28 lg:py-32">
+    <section id="metodo" className="relative z-10 overflow-hidden bg-white py-24 text-dark-text md:py-28">
 
-      <div className="relative z-10 mx-auto grid max-w-shell gap-14 px-6 md:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20 xl:gap-28">
+      <div className="relative z-10 mx-auto grid max-w-shell gap-12 px-6 md:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 xl:gap-20 xl:px-24">
         <div className="lg:sticky lg:top-32 lg:self-start">
-          <p className="t-label mb-5 flex items-center gap-3 text-gold-muted">
+          <p className="t-label mb-4 flex items-center gap-3 text-gold-muted">
             <span className="h-px w-6 bg-gold-muted" aria-hidden />
             05 El método
           </p>
           <h2 className="t-display t-h2 max-w-[14ch] font-medium text-dark-text">
             Un proceso que puedes anticipar.
           </h2>
-          <p className="mt-5 max-w-[36ch] text-[15px] font-normal leading-relaxed tracking-wide text-dark-text/55 md:text-[16px]">
+          <p className="mt-5 max-w-[36ch] text-[15px] font-normal leading-relaxed tracking-wide text-dark-text/65 md:text-[16px]">
             Seis etapas que ocurren en el mismo orden, sin importar por dónde empieces.
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function Method() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, ease: EASE }}
-              className="relative grid gap-3 py-7 sm:grid-cols-[88px_1fr] sm:gap-8 sm:py-8 md:grid-cols-[110px_1fr]"
+              className="relative grid gap-4 py-7 sm:grid-cols-[88px_1fr] sm:items-start sm:gap-8 sm:py-8 md:grid-cols-[110px_1fr]"
             >
               <span
                 className={`absolute -left-[calc(2rem+4.5px)] top-10 h-[10px] w-[10px] rotate-45 border transition-all duration-300 md:-left-[calc(2.5rem+4.5px)] ${
@@ -82,7 +82,7 @@ export default function Method() {
                 <p className="t-display mb-2 text-[clamp(1.15rem,1rem+0.6vw,1.4rem)] font-medium text-dark-text">
                   {m.title}
                 </p>
-                <p className="max-w-[42ch] text-[15px] font-normal leading-relaxed tracking-wide text-dark-text/55 md:text-[16px]">
+                <p className="max-w-[42ch] text-[15px] font-normal leading-relaxed tracking-wide text-dark-text/65 md:text-[16px]">
                   {m.body}
                 </p>
               </div>

@@ -20,10 +20,10 @@ export default function Authority() {
   }, []);
 
   return (
-    <section id="firma" ref={ref} className="relative bg-black py-24 md:py-36">
+    <section id="firma" ref={ref} className="relative bg-black py-24 md:py-28">
       <span className="glow absolute -right-40 top-10 h-[560px] w-[560px]" aria-hidden />
 
-      <div className="relative z-10 mx-auto grid max-w-shell items-center gap-14 px-6 md:px-10 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
+      <div className="relative z-10 mx-auto grid max-w-shell items-center gap-14 px-6 md:px-10 xl:px-24 lg:grid-cols-[.78fr_1.22fr] lg:gap-20">
         <motion.div
           initial={{ opacity: 0, y: 26 }}
           whileInView={{ opacity: 1, y: 0 }}

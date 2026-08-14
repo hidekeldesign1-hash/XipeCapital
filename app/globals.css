@@ -28,7 +28,7 @@
   --xipe-signal-soft: rgba(157, 228, 208, .15);
 
   --xipe-text: #F4F2EC;
-  --xipe-text-muted: #A7AAA4;
+  --xipe-text-muted: #C2C5BE;
   --xipe-dark-text: #111310;
 
   --xipe-border: rgba(255, 255, 255, .10);
@@ -206,84 +206,6 @@ em, i, cite, address, dfn, var { font-style: normal; }
   }
 }
 
-/* ── Ornamento lateral dorado (trazos, pulso, flujo) ── */
-.side-glyph {
-  overflow: visible;
-  --gold: #C9A765;
-  --glow: #E6D09A;
-  opacity: 0.6;
-}
-.glyph-line {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 2.25;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-.glyph-thin {
-  stroke-width: 1.15;
-  opacity: 0.74;
-}
-.glyph-trace {
-  stroke-dasharray: var(--len, 700);
-  stroke-dashoffset: var(--len, 700);
-  animation: glyph-draw var(--time, 7s) ease-in-out var(--delay, 0s) infinite alternate;
-}
-.glyph-flow {
-  stroke-dasharray: 3 11;
-  animation: glyph-flow var(--time, 4s) linear var(--delay, 0s) infinite;
-}
-.glyph-pulse {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: glyph-pulse var(--time, 4s) ease-in-out var(--delay, 0s) infinite;
-}
-.glyph-float {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: glyph-float var(--time, 5s) ease-in-out var(--delay, 0s) infinite alternate;
-}
-.glyph-spin {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: glyph-spin var(--time, 13s) linear var(--delay, 0s) infinite;
-}
-.glyph-blink {
-  animation: glyph-blink var(--time, 2.3s) ease-in-out var(--delay, 0s) infinite;
-}
-@keyframes glyph-draw {
-  0%, 8% { stroke-dashoffset: var(--len, 700); opacity: 0.28; }
-  70%, 100% { stroke-dashoffset: 0; opacity: 1; }
-}
-@keyframes glyph-flow {
-  to { stroke-dashoffset: -28; }
-}
-@keyframes glyph-pulse {
-  0%, 100% { transform: scale(0.96); opacity: 0.55; }
-  50% { transform: scale(1.045); opacity: 1; }
-}
-@keyframes glyph-float {
-  from { transform: translateY(-4px); }
-  to { transform: translateY(5px); }
-}
-@keyframes glyph-spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes glyph-blink {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 1; }
-}
-
-.pyramid-glow {
-  filter: drop-shadow(0 0 28px rgba(201, 167, 101, .28));
-  animation: pyramid-pulse 6s ease-in-out infinite;
-}
-@keyframes pyramid-pulse {
-  0%, 100% { filter: drop-shadow(0 0 22px rgba(201, 167, 101, .22)); }
-  50% { filter: drop-shadow(0 0 40px rgba(201, 167, 101, .4)); }
-}
-
 /* ── Movimiento reducido ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -294,13 +216,6 @@ em, i, cite, address, dfn, var { font-style: normal; }
   }
   .spark, .glow { display: none; }
   .intro-cta { animation: none; }
-  .pyramid-glow,
-  .glyph-trace,
-  .glyph-flow,
-  .glyph-pulse,
-  .glyph-float,
-  .glyph-spin,
-  .glyph-blink { animation: none !important; }
   .core-halo,
   .core-ring-spin,
   .core-ring-spin-rev,

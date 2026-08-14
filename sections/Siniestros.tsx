@@ -47,26 +47,26 @@ export default function Siniestros() {
   const [active, setActive] = useState<string | null>(null);
 
   return (
-    <section id="siniestros" className="relative overflow-hidden bg-deep py-24 md:py-28 lg:py-32">
-      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10">
-        <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12 xl:gap-16">
+    <section id="siniestros" className="relative overflow-hidden bg-deep py-24 md:py-28">
+      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
+        <div className="grid items-stretch gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           <motion.div
             initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.65, ease: EASE }}
           >
-            <p className="t-label mb-5 text-gold">
+            <p className="t-label mb-4 text-gold">
               <span className="text-gold-muted">—</span> 07 Siniestros
             </p>
             <h2 className="t-display t-h2 max-w-[16ch] font-medium">
               ¿Tuviste un siniestro? Estamos contigo.
             </h2>
-            <p className="mt-4 max-w-[42ch] text-[15px] font-normal leading-relaxed tracking-wide text-text-muted md:text-[16px]">
+            <p className="mt-5 max-w-[42ch] text-[15px] font-normal leading-relaxed tracking-wide text-text-muted md:text-[16px]">
               Te guiamos para que el proceso sea claro y sin complicaciones.
             </p>
 
-            <div className="mt-9 grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4">
+            <div className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-3">
               {CLAIM_TYPES.map((c) => {
                 const on = active === c.id;
                 return (
@@ -77,10 +77,10 @@ export default function Siniestros() {
                       setActive(c.id);
                       trackEvent('protection_cta_click', { claim: c.id });
                     }}
-                    className={`flex min-h-[96px] flex-col items-center justify-center gap-2.5 rounded-sm border px-3 py-4 text-center transition-colors duration-300 ${
+                    className={`flex min-h-[96px] flex-col items-center justify-center gap-2.5 rounded-sm border px-3 py-4 text-center transition-all duration-300 ${
                       on
-                        ? 'border-[#C4A77D]/30 bg-white/[0.03] text-gold-light'
-                        : 'border-white/10 text-gold hover:border-white/20'
+                        ? 'border-[#C4A77D]/35 bg-white/[0.03] text-gold-light'
+                        : 'border-white/10 text-gold hover:border-[#C4A77D]/35 hover:bg-white/[0.02]'
                     }`}
                   >
                     {CLAIM_ICONS[c.icon]}
@@ -92,11 +92,11 @@ export default function Siniestros() {
               })}
             </div>
 
-            <ol className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-0">
+            <ol className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-start sm:gap-6">
               {CLAIM_STEPS.map((s, i) => (
                 <li key={s.n} className="flex flex-1 items-start gap-3 sm:flex-col sm:items-stretch sm:gap-0">
                   <div className="flex items-start gap-3 sm:pr-4">
-                    <span className="grid h-9 w-9 flex-none place-items-center rounded-full border border-white/15 text-[12px] font-medium text-gold">
+                    <span className="grid h-9 w-9 flex-none place-items-center rounded-full border border-white/10 text-[12px] font-medium text-gold">
                       {s.n}
                     </span>
                     <div>
@@ -119,9 +119,9 @@ export default function Siniestros() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-50px' }}
             transition={{ duration: 0.65, delay: 0.1, ease: EASE }}
-            className="relative flex flex-col justify-center border border-white/10 bg-black p-7 sm:p-9 lg:min-h-[420px]"
+            className="relative flex flex-col justify-center border border-white/10 bg-black p-8 transition-all duration-300 hover:border-[#C4A77D]/20 sm:p-10 lg:min-h-full"
           >
-            <span className="mb-6 grid h-9 w-9 place-items-center border border-white/15 text-gold" aria-hidden>
+            <span className="mb-6 grid h-9 w-9 place-items-center border border-white/10 text-gold" aria-hidden>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M12 3l2.4 6.8H21l-5.4 4 2.1 6.7L12 16.8 6.3 20.5l2.1-6.7L3 9.8h6.6L12 3z" />
               </svg>

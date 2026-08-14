@@ -179,7 +179,7 @@ export default function DiagnosisProvider({ children }: { children: React.ReactN
                             aria-pressed={on}
                             onClick={() => choose(o.value)}
                             className={`flex min-h-[60px] items-center gap-4 rounded-sm border px-5 text-left text-[16px] transition-all duration-200 ${
-                              on ? 'border-signal bg-signal/10 text-text' : 'border-white/10 bg-surface text-text-muted hover:border-white/25 hover:text-text'
+                              on ? 'border-signal bg-signal/10 text-text' : 'border-white/10 bg-surface text-text-muted transition-all duration-300 hover:border-[#C4A77D]/35 hover:bg-white/[0.02] hover:text-text'
                             }`}
                           >
                             <span className={`h-4 w-4 flex-none rotate-45 border transition-colors ${on ? 'border-signal bg-signal' : 'border-white/20'}`} aria-hidden />

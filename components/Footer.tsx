@@ -36,7 +36,7 @@ const SOCIAL = [
 export default function Footer() {
   return (
     <footer className="border-t border-white/10 bg-black pt-16 pb-10 md:pt-20">
-      <div className="mx-auto max-w-shell px-6 md:px-10">
+      <div className="mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_2.2fr] lg:gap-16">
           <div>
             <Image src="/xipe-logo.png" alt="Xipe Capital Group" width={264} height={271} className="h-16 w-auto md:h-20" />
@@ -49,7 +49,7 @@ export default function Footer() {
                   <a
                     href={s.href}
                     aria-label={s.label}
-                    className="grid h-10 w-10 place-items-center border border-white/10 text-gold transition-colors hover:border-white/25"
+                    className="grid h-10 w-10 place-items-center border border-white/10 text-gold transition-all duration-300 hover:border-[#C4A77D]/35 hover:bg-white/[0.02]"
                   >
                     {s.icon}
                   </a>
@@ -58,7 +58,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-5 md:gap-5">
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-5">
             {FOOTER_COLS.map((c) => (
               <nav key={c.title} aria-label={c.title}>
                 <p className="t-label mb-4 text-[11px] text-gold">{c.title}</p>
@@ -78,16 +78,16 @@ export default function Footer() {
 
         <div className="mt-14 grid gap-4 border-t border-white/10 pt-8 md:grid-cols-[1fr_auto] md:items-center">
           <div>
-            <p className="text-[13px] text-white/45">
+            <p className="text-[13px] text-white/55">
               © 2024 Xipe Capital Group. Todos los derechos reservados.
             </p>
-            <p className="mt-3 max-w-[90ch] text-[12px] leading-relaxed text-white/35">{DISCLAIMER}</p>
-            <div className="mt-3 flex flex-wrap gap-4 text-[13px] text-white/45">
+            <p className="mt-3 max-w-[90ch] text-[12px] leading-relaxed text-white/50">{DISCLAIMER}</p>
+            <div className="mt-3 flex flex-wrap gap-4 text-[13px] text-white/55">
               <a href="#" className="hover:text-gold-light">Aviso de privacidad</a>
               <a href="#" className="hover:text-gold-light">Términos y condiciones</a>
             </div>
           </div>
-          <p className="flex items-center gap-2 text-[13px] text-white/45">
+          <p className="flex items-center gap-2 text-[13px] text-white/55">
             Hecho en México
             <span aria-hidden className="text-base leading-none">🇲🇽</span>
           </p>

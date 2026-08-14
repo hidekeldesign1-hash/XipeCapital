@@ -1,19 +1,19 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useDiagnosis } from '@/components/Diagnosis';
+import ArchitecturePyramid from '@/components/ArchitecturePyramid';
 import { trackEvent } from '@/lib/tracking';
 import { EASE } from '@/lib/animations';
 
 /**
- * Cierre visual: pirámide patrimonial (los rieles de greca viven a nivel sitio).
+ * Cierre visual: pirámide de arquitectura financiera (plano técnico interactivo).
  */
 export default function ArquitecturaCierre() {
   const { open } = useDiagnosis();
 
   return (
-    <section id="arquitectura-cierre" className="relative overflow-hidden bg-black py-24 md:py-28 lg:py-32">
+    <section id="arquitectura-cierre" className="relative overflow-hidden bg-black py-24 md:py-28">
       <div className="grid-bg opacity-60" aria-hidden />
 
       <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
@@ -22,18 +22,9 @@ export default function ArquitecturaCierre() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.9, ease: EASE }}
-          className="relative mx-auto mb-4 max-w-[640px] md:mb-5"
+          className="relative mx-auto mb-12 max-w-[720px]"
         >
-          <div className="relative mx-auto aspect-[995/940] w-full max-w-[560px]">
-            <Image
-              src="/xipe-pyramid.png"
-              alt="Pirámide de arquitectura patrimonial Xipe"
-              fill
-              sizes="(max-width: 768px) 90vw, 560px"
-              className="object-contain"
-              priority={false}
-            />
-          </div>
+          <ArchitecturePyramid />
         </motion.div>
 
         <motion.div
@@ -56,7 +47,7 @@ export default function ArquitecturaCierre() {
             arquitectura patrimonial clara, estratégica y acompañada.
           </p>
 
-          <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
             <button
               type="button"
               onClick={() => {
@@ -81,7 +72,7 @@ export default function ArquitecturaCierre() {
             </a>
           </div>
 
-          <p className="mx-auto mt-8 max-w-[40ch] text-[13px] leading-relaxed text-text-muted/80 md:text-[14px]">
+          <p className="mx-auto mt-8 max-w-[40ch] text-[13px] leading-relaxed text-text-muted md:text-[14px]">
             Empieza por una conversación clara. En cinco preguntas entendemos por dónde conviene comenzar.
           </p>
         </motion.div>

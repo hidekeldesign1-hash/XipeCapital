@@ -7,150 +7,148 @@ type Props = {
   className?: string;
 };
 
+const GOLD = '#C4A77D';
+const GLOW = '#E6D09A';
+
 /**
- * Ornamento geométrico dorado animado — laterales de la página.
- * Trazo, pulso, flujo y glifos según el gráfico de referencia.
+ * Laterales de página — plano técnico / glifo precolombino minimalista.
+ * Fijos, sutiles, sin bloquear interacción.
  */
 export default function SideBorderGreca({ side, className = '' }: Props) {
   return (
     <div
-      className={`pointer-events-none fixed inset-y-0 z-[1] hidden w-[88px] overflow-hidden md:block lg:w-[108px] xl:w-[124px] ${
+      className={`pointer-events-none fixed inset-y-0 z-[1] hidden overflow-hidden md:block ${
         side === 'left' ? 'left-0' : 'right-0'
-      } ${className}`}
+      } w-[72px] lg:w-[92px] xl:w-[108px] ${className}`}
+      style={{
+        opacity: 0.32,
+        maskImage:
+          side === 'left'
+            ? 'linear-gradient(90deg, transparent 0%, black 12%, black 85%, transparent 100%)'
+            : 'linear-gradient(270deg, transparent 0%, black 12%, black 85%, transparent 100%)',
+        WebkitMaskImage:
+          side === 'left'
+            ? 'linear-gradient(90deg, transparent 0%, black 12%, black 85%, transparent 100%)'
+            : 'linear-gradient(270deg, transparent 0%, black 12%, black 85%, transparent 100%)',
+      }}
       aria-hidden
     >
       <svg
-        className={`side-glyph h-full w-full ${side === 'right' ? 'scale-x-[-1]' : ''}`}
-        viewBox="50 16 150 748"
-        preserveAspectRatio="xMidYMid meet"
+        className={`h-full w-full ${side === 'right' ? 'scale-x-[-1]' : ''}`}
+        viewBox="0 0 120 900"
+        preserveAspectRatio="xMidYMid slice"
         fill="none"
       >
-        <g>
-          {/* Marco y grandes recorridos */}
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 1320, '--time': '10s' } as React.CSSProperties}
-            d="M62 88H104V101H75V238H108V272H151V579H111V613H75V744H104V756H62Z"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 940, '--time': '8.4s', '--delay': '-2s' } as React.CSSProperties}
-            d="M79 116H139V219H109V251H158V567H125V596H80V657H137V711H87V682H122V671H67V583H104V557H137V288H91V259H67V116Z"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 430, '--time': '6.2s', '--delay': '-3.1s' } as React.CSSProperties}
-            d="M98 132H127V207H93V164H111V188H116V145H98Z"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 410, '--time': '5.8s', '--delay': '-1.2s' } as React.CSSProperties}
-            d="M91 669H130V720H83V693H111V707H117V683H91Z"
-          />
+        <defs>
+          <filter id={`rail-glow-${side}`} x="-80%" y="-10%" width="260%" height="120%">
+            <feGaussianBlur stdDeviation="1.1" result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
 
-          {/* Espirales independientes */}
-          <g className="glyph-pulse" style={{ '--time': '4.8s' } as React.CSSProperties}>
-            <path
-              className="glyph-line glyph-trace"
-              style={{ '--len': 260, '--time': '5s', '--delay': '-1s' } as React.CSSProperties}
-              d="M103 344c-32-3-37 45-7 50 28 5 39-34 16-45-18-8-29 14-17 25 10 9 24-3 16-13"
-            />
-          </g>
-          <g className="glyph-pulse" style={{ '--time': '5.7s', '--delay': '-2s' } as React.CSSProperties}>
-            <path
-              className="glyph-line glyph-trace"
-              style={{ '--len': 245, '--time': '5.5s', '--delay': '-2.5s' } as React.CSSProperties}
-              d="M104 496c-29-2-35 40-8 46 26 5 37-31 16-42-17-9-28 12-17 23 9 9 22-2 15-12"
-            />
+        <g stroke={GOLD} strokeWidth="1" strokeLinecap="square" strokeLinejoin="miter">
+          {/* Diamantes superiores */}
+          <path d="M48 28l8 8-8 8-8-8z" opacity="0.85" />
+          <path d="M48 48l5 5-5 5-5-5z" opacity="0.55" />
+
+          {/* Laberinto / espiral cuadrada superior */}
+          <path
+            d="M28 72h44v36H36v-24h24v12H48v-4"
+            opacity="0.8"
+            fill="none"
+          />
+          <path d="M64 78h14v48H42v-10h26v-28" opacity="0.55" />
+          <path d="M22 88h8M22 100h6M22 112h10" opacity="0.4" strokeWidth="0.8" />
+
+          {/* Bloque técnico — líneas paralelas */}
+          <g opacity="0.7" strokeWidth="0.85">
+            <line x1="40" y1="148" x2="40" y2="320" />
+            <line x1="48" y1="156" x2="48" y2="312" />
+            <line x1="56" y1="148" x2="56" y2="320" />
+            <line x1="64" y1="160" x2="64" y2="300" />
           </g>
 
-          {/* Glifos interiores */}
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 120, '--time': '4.2s', '--delay': '-1.5s' } as React.CSSProperties}
-            d="M100 225h25v-15h-8v-11h-18v12"
-          />
-          <rect
-            className="glyph-line glyph-pulse"
-            style={{ '--time': '3.8s', '--delay': '-.6s' } as React.CSSProperties}
-            x="137"
-            y="238"
-            width="18"
-            height="20"
-            rx="2"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 90, '--time': '3.7s', '--delay': '-2s' } as React.CSSProperties}
-            d="M83 290h17m-17 11h11m-11 11h16"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 150, '--time': '4s', '--delay': '-1s' } as React.CSSProperties}
-            d="M87 408c13-8 23 13 9 20-14 6-22-13-9-20m9 3 6-5"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 130, '--time': '4.4s', '--delay': '-2.6s' } as React.CSSProperties}
-            d="M90 456c12-6 20 12 8 18-13 6-20-12-8-18m10-2 8-10"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 130, '--time': '4.8s', '--delay': '-.8s' } as React.CSSProperties}
-            d="M89 566v31h25v16H88m41-35h18v18h-18Z"
-          />
-          <path
-            className="glyph-line glyph-trace"
-            style={{ '--len': 100, '--time': '3.8s', '--delay': '-2s' } as React.CSSProperties}
-            d="M91 622h20v17H93v-9"
-          />
+          {/* Eje lateral con nodos */}
+          <line x1="88" y1="140" x2="88" y2="760" strokeWidth="0.7" opacity="0.5" />
+          {[180, 240, 310, 420, 520, 620, 710].map((y) => (
+            <path key={y} d={`M88 ${y - 3.5}l3.5 3.5-3.5 3.5-3.5-3.5z`} opacity="0.55" />
+          ))}
+          <circle cx="88" cy="470" r="3.5" opacity="0.55" />
 
-          {/* Línea lateral y partículas */}
-          <path className="glyph-line glyph-thin" d="M184 72V707" />
-          <path
-            className="glyph-line glyph-thin glyph-flow"
-            style={{ '--time': '3.8s' } as React.CSSProperties}
-            d="M184 113V665"
-          />
-          <g className="glyph-spin" style={{ '--time': '11s' } as React.CSSProperties}>
-            <path className="glyph-line" d="M184 253l8 11-8 11-8-11Z" />
-          </g>
-          <g className="glyph-spin" style={{ '--time': '14s', '--delay': '-5s' } as React.CSSProperties}>
-            <path className="glyph-line" d="M184 420l10 12-10 12-10-12Z" />
-          </g>
-          <g className="glyph-pulse" style={{ '--time': '3.2s' } as React.CSSProperties}>
-            <circle className="glyph-line" cx="184" cy="568" r="6" />
+          {/* Círculos y arcos (glifo técnico) */}
+          <circle cx="36" cy="200" r="14" opacity="0.55" />
+          <circle cx="36" cy="248" r="9" opacity="0.5" />
+          <line x1="29" y1="241" x2="43" y2="255" opacity="0.45" strokeWidth="0.8" />
+          <path d="M24 288a14 14 0 0 1 28 0" opacity="0.5" />
+
+          {/* Ticks / datos */}
+          <g opacity="0.35" strokeWidth="0.7">
+            <line x1="72" y1="190" x2="80" y2="190" />
+            <line x1="72" y1="210" x2="78" y2="210" />
+            <line x1="72" y1="268" x2="80" y2="268" />
+            <line x1="30" y1="330" x2="70" y2="330" />
           </g>
 
-          {/* Ornamentos superior e inferior */}
-          <g className="glyph-float" style={{ '--time': '4.2s' } as React.CSSProperties}>
-            <path className="glyph-line" d="M86 28l10 12-10 12-10-12Z" />
-            <path
-              className="glyph-line glyph-pulse"
-              style={{ '--time': '3.6s' } as React.CSSProperties}
-              d="M86 63l5 6-5 6-5-6Z"
-            />
-          </g>
-          <g className="glyph-float" style={{ '--time': '5s', '--delay': '-2.4s' } as React.CSSProperties}>
-            <path className="glyph-line" d="M86 748l10 13-10 13-10-13Z" />
-            <path
-              className="glyph-line glyph-pulse"
-              style={{ '--time': '3.6s' } as React.CSSProperties}
-              d="M86 726l5 6-5 6-5-6Z"
-            />
+          {/* Medallón central */}
+          <g opacity="0.75">
+            <circle cx="52" cy="400" r="34" strokeWidth="0.85" />
+            <circle cx="52" cy="400" r="26" strokeWidth="0.6" strokeDasharray="1.5 4" opacity="0.7" />
+            <circle cx="52" cy="400" r="18" strokeWidth="0.85" />
+            {/* Glifo geométrico interior */}
+            <rect x="44" y="392" width="16" height="16" opacity="0.85" />
+            <rect x="48" y="396" width="8" height="8" opacity="0.55" />
+            <path d="M52 378v8M52 414v8M34 400h8M62 400h8" opacity="0.55" strokeWidth="0.8" />
+            {/* Escalones */}
+            <path d="M40 418h24M44 422h16" opacity="0.4" strokeWidth="0.7" />
           </g>
 
-          {/* Puntos con ritmos separados */}
-          <g fill="#E6D09A">
-            <circle className="glyph-blink" style={{ '--delay': '-.2s' } as React.CSSProperties} cx="121" cy="320" r="1.4" />
-            <circle className="glyph-blink" style={{ '--delay': '-1.1s' } as React.CSSProperties} cx="121" cy="333" r="1.2" />
-            <circle className="glyph-blink" style={{ '--delay': '-.7s' } as React.CSSProperties} cx="122" cy="440" r="1.4" />
-            <circle className="glyph-blink" style={{ '--delay': '-1.5s' } as React.CSSProperties} cx="122" cy="458" r="1.2" />
-            <circle className="glyph-blink" style={{ '--delay': '-.4s' } as React.CSSProperties} cx="139" cy="617" r="1.5" />
-            <circle className="glyph-blink" style={{ '--delay': '-1.8s' } as React.CSSProperties} cx="142" cy="635" r="1.2" />
-            <circle className="glyph-blink" style={{ '--delay': '-1s' } as React.CSSProperties} cx="184" cy="590" r="1.5" />
-            <circle className="glyph-blink" style={{ '--delay': '-2s' } as React.CSSProperties} cx="184" cy="608" r="1.2" />
+          {/* Greca escalonada media */}
+          <path
+            d="M30 460h40v14H38v12h28v14H30v-14h28v-12H30z"
+            opacity="0.65"
+          />
+
+          {/* Continuación de líneas */}
+          <g opacity="0.65" strokeWidth="0.85">
+            <line x1="40" y1="520" x2="40" y2="640" />
+            <line x1="48" y1="528" x2="48" y2="632" />
+            <line x1="56" y1="520" x2="56" y2="640" />
           </g>
+
+          {/* Laberinto inferior */}
+          <path
+            d="M28 660h44v36H36v-24h24v12H48v-4"
+            opacity="0.75"
+          />
+          <path d="M64 666h14v40H42v-8h26" opacity="0.5" />
+
+          {/* Cenefa / S suave */}
+          <path
+            d="M52 720c-14 2-16 22-3 25 12 3 18-16 8-21-7-4-12 6-8 12"
+            opacity="0.55"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+
+          {/* Diamantes inferiores */}
+          <path d="M48 780l5 5-5 5-5-5z" opacity="0.55" />
+          <path d="M48 800l8 8-8 8-8-8z" opacity="0.85" />
+
+          {/* Marcos de esquina sutiles */}
+          <path d="M12 120h16M12 120v16" opacity="0.35" strokeWidth="0.8" />
+          <path d="M12 780h16M12 780v-16" opacity="0.35" strokeWidth="0.8" />
+        </g>
+
+        {/* Nodos de luz */}
+        <g fill={GLOW} filter={`url(#rail-glow-${side})`}>
+          <circle cx="48" cy="36" r="1.2" opacity="0.7" />
+          <circle cx="52" cy="400" r="1.6" opacity="0.85" />
+          <circle cx="88" cy="470" r="1.2" opacity="0.65" />
+          <circle cx="48" cy="808" r="1.2" opacity="0.7" />
+          <circle cx="36" cy="200" r="1" opacity="0.45" />
         </g>
       </svg>
     </div>

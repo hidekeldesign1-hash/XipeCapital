@@ -12,9 +12,9 @@ export default function Routes() {
   const { open } = useDiagnosis();
 
   return (
-    <section id="rutas" className="relative bg-deep py-24 md:py-36">
+    <section id="rutas" className="relative bg-deep py-24 md:py-28">
       <div className="grid-bg" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10">
+      <div className="relative z-10 mx-auto max-w-shell px-6 md:px-10 xl:px-24">
         <SectionLabel n="05">Rutas</SectionLabel>
         <h2 className="t-display t-h2 mb-4 max-w-[20ch]">
           Seis puntos de entrada. <span className="t-glow">La misma arquitectura.</span>

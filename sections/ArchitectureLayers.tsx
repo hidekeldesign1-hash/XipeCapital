@@ -60,7 +60,7 @@ export default function ArchitectureLayers() {
       <div className="grid-bg" aria-hidden />
       <span className="glow absolute -left-52 top-1/4 h-[640px] w-[640px]" aria-hidden />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-shell items-center gap-14 px-6 md:px-10 lg:grid-cols-[.95fr_1.05fr] lg:gap-20">
+      <div className="relative z-10 mx-auto grid w-full max-w-shell items-center gap-14 px-6 md:px-10 xl:px-24 lg:grid-cols-[.95fr_1.05fr] lg:gap-20">
         <div>
           <SectionLabel n="02">La arquitectura</SectionLabel>
           <h2 className="t-display t-h2 max-w-[16ch]">

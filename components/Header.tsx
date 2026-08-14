@@ -29,12 +29,19 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-xipe ${
-          stuck ? 'border-b border-white/10 bg-black/80 backdrop-blur-xl' : 'border-b border-transparent'
+        className={`fixed inset-x-0 top-0 z-50 border-b transition-all duration-300 ease-xipe ${
+          stuck
+            ? 'border-white/5 bg-[#0A0A0A]/80 backdrop-blur-md'
+            : 'border-white/[0.03] bg-[#0A0A0A]/55 backdrop-blur-md'
         }`}
       >
-        <div className="mx-auto grid h-[4.25rem] max-w-shell grid-cols-[1fr_auto] items-center px-6 md:h-[4.5rem] md:px-12 lg:grid-cols-[1fr_auto_1fr] lg:px-16 xl:px-20">
-          <a href="#top" className="justify-self-start" aria-label="Xipe Capital Group, inicio">
+        <div className="relative mx-auto flex h-[4.25rem] max-w-shell items-center justify-between gap-4 px-6 md:h-[4.5rem] md:px-10 xl:px-24">
+          {/* Logo */}
+          <a
+            href="#top"
+            className="flex shrink-0 items-center"
+            aria-label="Xipe Capital Group, inicio"
+          >
             <Image
               src="/xipe-logo.png"
               alt="Xipe Capital Group"
@@ -45,32 +52,31 @@ export default function Header() {
             />
           </a>
 
-          <nav className="hidden justify-self-center lg:block" aria-label="Navegación principal">
+          {/* Nav centrado */}
+          <nav className="absolute left-1/2 hidden -translate-x-1/2 lg:block" aria-label="Navegación principal">
             <ul className="flex items-center gap-1">
               {NAV.map((item) => (
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="group relative block px-3.5 py-2 text-[13px] font-medium tracking-[0.04em] text-text-muted transition-colors hover:text-text xl:px-4"
+                    className="group relative block px-3 py-2 text-[13px] font-medium tracking-[0.06em] text-white/55 transition-colors duration-300 hover:text-[#C4A77D]"
                   >
                     {item.label}
-                    <span className="absolute bottom-0.5 left-3.5 right-3.5 h-px origin-left scale-x-0 bg-gold transition-transform duration-300 ease-xipe group-hover:scale-x-100" />
+                    <span className="absolute bottom-0.5 left-3 right-3 h-px origin-left scale-x-0 bg-[#C4A77D]/70 transition-transform duration-300 ease-xipe group-hover:scale-x-100" />
                   </a>
                 </li>
               ))}
             </ul>
           </nav>
 
-          <div className="flex items-center justify-end gap-3 justify-self-end">
+          {/* CTA compacto + menú móvil */}
+          <div className="flex shrink-0 items-center gap-3">
             <button
               type="button"
               onClick={() => openDiagnosis('header')}
-              className="group hidden min-h-[40px] items-center gap-2 rounded-sm bg-gold px-5 text-[12px] font-medium uppercase tracking-[.12em] text-black transition-opacity duration-200 hover:opacity-90 sm:inline-flex"
+              className="hidden bg-transparent px-4 py-2 text-xs font-medium uppercase tracking-[0.14em] text-[#C4A77D] transition-colors duration-300 sm:inline-flex sm:items-center sm:gap-1.5 border border-[#C4A77D]/60 hover:bg-[#C4A77D]/10 rounded-sm"
             >
               Diseñar mi arquitectura
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square" className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden>
-                <path d="M4 12h15M13 6l6 6-6 6" />
-              </svg>
             </button>
             <button
               type="button"
@@ -78,9 +84,9 @@ export default function Header() {
               aria-label="Abrir menú"
               aria-expanded={open}
               aria-controls="menu-movil"
-              className="grid h-12 w-12 place-items-center rounded-sm border border-white/10 lg:hidden"
+              className="grid h-9 w-9 place-items-center rounded-sm border border-white/10 text-white/70 transition-colors hover:border-[#C4A77D]/35 hover:text-[#C4A77D] lg:hidden"
             >
-              <span className="relative block h-px w-5 bg-text before:absolute before:-top-1.5 before:left-0 before:h-px before:w-5 before:bg-text after:absolute after:top-1.5 after:left-0 after:h-px after:w-5 after:bg-text" />
+              <span className="relative block h-px w-4 bg-current before:absolute before:-top-1.5 before:left-0 before:h-px before:w-4 before:bg-current after:absolute after:top-1.5 after:left-0 after:h-px after:w-4 after:bg-current" />
             </button>
           </div>
         </div>
@@ -97,21 +103,21 @@ export default function Header() {
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.5, ease: [0.22, 0.61, 0.28, 1] }}
-            className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-black px-6 pb-16 pt-5 md:px-10"
+            className="fixed inset-0 z-[60] flex flex-col overflow-y-auto bg-[#0A0A0A] px-6 pb-16 pt-5 md:px-10 xl:px-24"
           >
-            <div className="mb-12 flex min-h-[72px] items-center justify-between">
+            <div className="mx-auto mb-12 flex min-h-[72px] w-full max-w-shell items-center justify-between">
               <Image src="/xipe-logo.png" alt="Xipe Capital Group" width={264} height={271} className="h-10 w-auto" />
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Cerrar menú"
-                className="grid h-12 w-12 place-items-center rounded-sm border border-white/10"
+                className="grid h-11 w-11 place-items-center rounded-sm border border-white/10 text-white/70"
               >
-                <span className="relative block h-px w-5 rotate-45 bg-text after:absolute after:left-0 after:top-0 after:h-px after:w-5 after:-rotate-90 after:bg-text" />
+                <span className="relative block h-px w-5 rotate-45 bg-current after:absolute after:left-0 after:top-0 after:h-px after:w-5 after:-rotate-90 after:bg-current" />
               </button>
             </div>
 
-            <nav aria-label="Navegación móvil">
+            <nav className="mx-auto w-full max-w-shell" aria-label="Navegación móvil">
               {NAV.map((item, i) => (
                 <motion.a
                   key={item.label}
@@ -128,21 +134,30 @@ export default function Header() {
               ))}
             </nav>
 
-            <button
-              type="button"
-              onClick={() => { setOpen(false); openDiagnosis('menu'); }}
-              className="mt-12 min-h-[56px] w-full rounded-sm bg-gold px-6 text-[15px] font-semibold uppercase tracking-[.12em] text-black"
-            >
-              Diseñar mi arquitectura
-            </button>
+            <div className="mx-auto mt-12 w-full max-w-shell">
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  openDiagnosis('menu');
+                }}
+                className="min-h-[52px] w-full rounded-sm border border-[#C4A77D]/40 px-6 text-[14px] font-medium uppercase tracking-[0.14em] text-[#C4A77D] transition-colors hover:bg-[#C4A77D]/10"
+              >
+                Diseñar mi arquitectura
+              </button>
 
-            <button
-              type="button"
-              onClick={() => { setOpen(false); trackEvent('method_link_click', { from: 'menu' }); document.querySelector('#diagnostico')?.scrollIntoView({ behavior: 'smooth' }); }}
-              className="mt-4 min-h-[52px] w-full rounded-sm border border-white/15 px-6 text-[15px] uppercase tracking-[.12em] text-text-muted"
-            >
-              Empezar diagnóstico
-            </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  trackEvent('method_link_click', { from: 'menu' });
+                  document.querySelector('#diagnostico')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="mt-4 min-h-[52px] w-full rounded-sm border border-white/15 px-6 text-[14px] uppercase tracking-[0.12em] text-white/55 transition-colors hover:text-[#C4A77D]"
+              >
+                Empezar diagnóstico
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

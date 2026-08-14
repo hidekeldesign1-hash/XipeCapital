@@ -13,7 +13,7 @@ export default function Hero() {
     <section id="top" className="relative flex min-h-[100svh] items-center overflow-hidden pt-[4.25rem] md:pt-[4.5rem] lg:h-[100svh] lg:max-h-[100svh]">
       <div className="grid-bg" aria-hidden />
 
-      <div className="relative z-10 mx-auto grid w-full max-w-shell items-center gap-6 px-6 py-6 md:px-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-10 lg:py-8 xl:px-20">
+      <div className="relative z-10 mx-auto grid w-full max-w-shell items-center gap-8 px-6 py-6 md:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-12 lg:py-8 xl:px-24">
         <div>
           <motion.p custom={0} variants={rise} initial="hidden" animate="show" className="t-label mb-4 flex items-center gap-3 text-gold">
             <span className="fret" aria-hidden />
@@ -30,7 +30,7 @@ export default function Hero() {
             comprensible y acompañada.
           </motion.p>
 
-          <motion.div custom={3} variants={rise} initial="hidden" animate="show" className="mt-6 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+          <motion.div custom={3} variants={rise} initial="hidden" animate="show" className="mt-8 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
             <a
               href="#diagnostico"
               onClick={() => trackEvent('hero_primary_cta_click')}
